@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
-    [SerializeField] private GameObject snakeHead;
+    [Header("Configurable")]
     [SerializeField] private float moveIntervalSecs = 1f;
+
+    [Space]
+    [Header("Internal")]
+    [SerializeField] private GameGridBehavior gameGrid;
+    [SerializeField] private GameObject snakeHead;
+    [SerializeField] private GameObject snakeBodiesContainer;
 
     private Direction facingAt = Direction.RIGHT;
 
@@ -30,11 +36,19 @@ public class SnakeBehavior : MonoBehaviour
 
     private void Move()
     {
-        Vector2 direction = facingAt.ToVector2();
-        float moveInX = direction.x * 1.125f;
-        float moveInY = direction.y * 1.125f;
+        Vector2 moveDir = facingAt.ToVector2();
+        Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
+        Vector2Int targetPos = new Vector2Int(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
+        targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
 
-        this.transform.position += new Vector3(moveInX, moveInY, 0);
+
+
+        if (gameGrid.IsGridCellFree(targetPos))
+        {
+            gameGrid.ClearCell(currentPos);
+            this.transform.position = (Vector2)targetPos;
+            gameGrid.OcupyCell(CellObject.SNAKE, targetPos);
+        }
     }
 
     private void HandMovementInput()
@@ -57,6 +71,20 @@ public class SnakeBehavior : MonoBehaviour
         snakeHead.transform.rotation = facingAt.ToQuaternion();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("trigger enter 2d!!!!!");
+
+        FoodBehavior food = collision.gameObject.GetComponent<FoodBehavior>();
+        if (food)
+        {
+            //snake.cresceDeTamanho
+            food.Reposition();
+
+        }
+
+
+    }
 
 
 
