@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
-
+    [SerializeField] private GameObject snakeHead;
     [SerializeField] private float moveIntervalSecs = 1f;
 
     private Direction facingAt = Direction.RIGHT;
@@ -13,9 +13,10 @@ public class SnakeBehavior : MonoBehaviour
         StartCoroutine(MovingConstantly());
     }
 
-    void Update()
+    private void Update()
     {
         HandMovementInput();
+        UpdateSnakeHeadRotation();
     }
 
     private IEnumerator MovingConstantly()
@@ -51,11 +52,11 @@ public class SnakeBehavior : MonoBehaviour
             facingAt = Direction.RIGHT;
     }
 
-    public void SetPosition(int tileX, int tileY)
+    private void UpdateSnakeHeadRotation()
     {
-        Vector2 pos = new Vector2(tileX + (tileX * 1.125f), tileY + (tileY * 1.125f));
-        this.transform.position = pos;
+        snakeHead.transform.rotation = facingAt.ToQuaternion();
     }
+
 
 
 
