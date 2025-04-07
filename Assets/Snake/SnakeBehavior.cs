@@ -80,6 +80,7 @@ public class SnakeBehavior : MonoBehaviour
         FoodBehavior food = collision.gameObject.GetComponent<FoodBehavior>();
         if (food)
         {
+            Debug.Log("foodfoodfood");
             //snake.cresceDeTamanho
             food.Reposition();
 

@@ -45,10 +45,10 @@ public class GameGridBehavior : MonoBehaviour
         return freeCells;
     }
 
-    public GridCell GetRandomFreeCell()
+    public Vector2Int GetRandomFreeCellPosition()
     {
         List<GridCell> freeCells = GetFreeCells();
-        return freeCells[Random.Range(0, freeCells.Count)];
+        return freeCells[Random.Range(0, freeCells.Count)].position;
     }
 
     public Vector2Int MirrorPositionIfOutOfBounds(Vector2Int pos)
@@ -67,7 +67,8 @@ public class GameGridBehavior : MonoBehaviour
 
     public bool IsGridCellFree(Vector2Int pos)
     {
-        return grid[new Vector2Int(pos.x, pos.y)].objectInCell == CellObject.EMPTY;
+        CellObject objectInTheCell = grid[new Vector2Int(pos.x, pos.y)].objectInCell;
+        return objectInTheCell == CellObject.EMPTY || objectInTheCell == CellObject.FOOD;
     }
 
     public void ClearCell(Vector2Int pos)
