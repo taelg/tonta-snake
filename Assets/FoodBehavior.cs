@@ -12,7 +12,6 @@ public class FoodBehavior : MonoBehaviour
 
     public void Reposition()
     {
-        Debug.Log("Reposition");
         Vector2Int newPos = gameGrid.GetRandomFreeCellPosition();
         gameGrid.OcupyCell(CellObject.FOOD, newPos);
         this.transform.position = new Vector2(newPos.x, newPos.y);

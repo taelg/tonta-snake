@@ -75,12 +75,9 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("trigger enter 2d!!!!!");
-
         FoodBehavior food = collision.gameObject.GetComponent<FoodBehavior>();
         if (food)
         {
-            Debug.Log("foodfoodfood");
             //snake.cresceDeTamanho
             food.Reposition();
 
