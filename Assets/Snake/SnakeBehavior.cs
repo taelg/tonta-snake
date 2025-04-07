@@ -12,7 +12,8 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameObject snakeHead;
     [SerializeField] private GameObject snakeBodiesContainer;
 
-    private Direction facingAt = Direction.RIGHT;
+    private Direction facingDir = Direction.RIGHT;
+    private Direction lastMovedDir = Direction.NONE;
 
     private void Start()
     {
@@ -36,7 +37,7 @@ public class SnakeBehavior : MonoBehaviour
 
     private void Move()
     {
-        Vector2 moveDir = facingAt.ToVector2();
+        Vector2 moveDir = facingDir.ToVector2();
         Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
         Vector2Int targetPos = new Vector2Int(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
         targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
@@ -45,6 +46,7 @@ public class SnakeBehavior : MonoBehaviour
 
         if (gameGrid.IsGridCellFree(targetPos))
         {
+            lastMovedDir = facingDir;
             gameGrid.ClearCell(currentPos);
             this.transform.position = (Vector2)targetPos;
             gameGrid.OcupyCell(CellObject.SNAKE, targetPos);
@@ -53,22 +55,22 @@ public class SnakeBehavior : MonoBehaviour
 
     private void HandMovementInput()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-            facingAt = Direction.UP;
+        if (Input.GetKeyDown(KeyCode.W) && (lastMovedDir != Direction.DOWN))
+            facingDir = Direction.UP;
 
-        if (Input.GetKeyDown(KeyCode.A))
-            facingAt = Direction.LEFT;
+        if (Input.GetKeyDown(KeyCode.A) && (lastMovedDir != Direction.RIGHT))
+            facingDir = Direction.LEFT;
 
-        if (Input.GetKeyDown(KeyCode.S))
-            facingAt = Direction.DOWN;
+        if (Input.GetKeyDown(KeyCode.S) && (lastMovedDir != Direction.UP))
+            facingDir = Direction.DOWN;
 
-        if (Input.GetKeyDown(KeyCode.D))
-            facingAt = Direction.RIGHT;
+        if (Input.GetKeyDown(KeyCode.D) && (lastMovedDir != Direction.LEFT))
+            facingDir = Direction.RIGHT;
     }
 
     private void UpdateSnakeHeadRotation()
     {
-        snakeHead.transform.rotation = facingAt.ToQuaternion();
+        snakeHead.transform.rotation = facingDir.ToQuaternion();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

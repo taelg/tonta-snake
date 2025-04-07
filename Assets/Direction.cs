@@ -5,7 +5,8 @@ public enum Direction
     UP,
     LEFT,
     DOWN,
-    RIGHT
+    RIGHT,
+    NONE
 }
 
 public static class DirectionExtensions
