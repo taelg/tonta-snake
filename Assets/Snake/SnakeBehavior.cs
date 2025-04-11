@@ -7,6 +7,7 @@ public class SnakeBehavior : MonoBehaviour
 {
     [Header("Configurable")]
     [SerializeField] private float moveIntervalSecs = 1f;
+    [SerializeField] private int positionHistorySize = 10;
 
     [Space]
     [Header("Internal")]
@@ -19,6 +20,8 @@ public class SnakeBehavior : MonoBehaviour
     private List<Transform> snakeBodyParts = new List<Transform>();
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
+
+    private bool alive = true;
 
     private void Start()
     {
@@ -34,7 +37,7 @@ public class SnakeBehavior : MonoBehaviour
 
     private IEnumerator MovingConstantly()
     {
-        while (true)
+        while (alive)
         {
             yield return new WaitForSeconds(moveIntervalSecs);
             Move();
@@ -49,27 +52,25 @@ public class SnakeBehavior : MonoBehaviour
         Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
         Vector2Int targetPos = new Vector2Int(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
         targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
+        bool isTargetCellFree = gameGrid.IsGridCellFree(targetPos);
 
-        if (gameGrid.IsGridCellFree(targetPos))
+        if (isTargetCellFree)
         {
             lastMovedDir = facingDir;
-
-            //If is the only snake part and is leaving a 'snake_and_food' state then increase the snake.
-            bool isTheOnlySnakePart = snakeBodyParts.Count == 0;
+            bool isTheLastSnakePart = snakeBodyParts.Count == 0;
             CellState currentCellState = gameGrid.GetCellState(currentPos);
-            if (isTheOnlySnakePart && currentCellState == CellState.SNAKE_AND_FOOD)
-            {
-                IncreaseSnakeBody();
-            }
+            bool shouldIncreaseNow = isTheLastSnakePart && currentCellState == CellState.SNAKE_AND_FOOD;
+            bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
+            CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
 
-            if (isTheOnlySnakePart)
+            if (shouldIncreaseNow)
+                IncreaseSnakeBody();
+
+            if (isTheLastSnakePart)
                 gameGrid.ClearCellState(currentPos);
 
-            //Move to the new position and decide the new cell state between: SNAKE_AND_FOOD or SNAKE. Was there a food?
             this.transform.position = (Vector2)targetPos;
-            bool isCellStateFood = gameGrid.GetCellState(targetPos) == CellState.FOOD;
-            CellState newState = isCellStateFood ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
-            gameGrid.SetCellState(newState, targetPos);
+            gameGrid.SetCellState(targetPosNewState, targetPos);
         }
         else
         {
@@ -81,38 +82,33 @@ public class SnakeBehavior : MonoBehaviour
     {
         positionsHistory.AddFirst(transform.position);
 
-        if (positionsHistory.Count > snakeBodyParts.Count + 10)
+        bool posHistoryNeedTrim = positionsHistory.Count > snakeBodyParts.Count + positionHistorySize;
+        if (posHistoryNeedTrim)
             positionsHistory.RemoveLast();
     }
 
-    //Adding a lot of comments because as this method is getting bigger and doing a lot of things it will get refactored in the next commits.
     private void MoveBodies()
     {
         List<Vector2> positionHistoryList = positionsHistory.ToList();
 
         for (int i = 0; i < snakeBodyParts.Count; i++)
         {
-            bool isLastSnakePart = i + 1 == snakeBodyParts.Count;
+            bool isTheLastSnakePart = i + 1 == snakeBodyParts.Count;
             Vector2Int currentPos = new Vector2Int((int)positionHistoryList[i + 2].x, (int)positionHistoryList[i + 2].y);
             Vector2Int targetPos = new Vector2Int((int)positionHistoryList[i + 1].x, (int)positionHistoryList[i + 1].y);
-
-            //If is the last snake part and is leaving a 'snake_and_food' state then increase the snake.
             CellState currentCellState = gameGrid.GetCellState(currentPos);
-            if (isLastSnakePart && currentCellState == CellState.SNAKE_AND_FOOD)
-            {
-                IncreaseSnakeBody();
-            }
+            bool shouldIncreaseNow = isTheLastSnakePart && currentCellState == CellState.SNAKE_AND_FOOD;
+            bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.SNAKE_AND_FOOD;
+            CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
 
-            //Clear old snake position.
-            if (isLastSnakePart)
+            if (shouldIncreaseNow)
+                IncreaseSnakeBody();
+
+            if (isTheLastSnakePart)
                 gameGrid.ClearCellState(currentPos);
 
-            //Move to the new position while conserving the cell state if there's a "food in the belly" there: 'snake_and_food' state.
             snakeBodyParts[i].position = (Vector2)targetPos;
-            bool isCellStateSnakeAndFood = gameGrid.GetCellState(targetPos) == CellState.SNAKE_AND_FOOD;
-
-            CellState newState = isCellStateSnakeAndFood ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
-            gameGrid.SetCellState(newState, targetPos);
+            gameGrid.SetCellState(targetPosNewState, targetPos);
         }
     }
 
