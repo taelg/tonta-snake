@@ -5,9 +5,17 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
-    [Header("Configurable")]
-    [SerializeField] private float moveIntervalSecs = 1f;
+    [Header("General Config")]
+    [SerializeField] private float moveIntervalSecs = 0.35f;
     [SerializeField] private int positionHistorySize = 10;
+    [SerializeField] private Color defaulSnakeColor = new Color(0.2f, 0.6f, 0);
+    [SerializeField] private Color snakeAndFoodColor = new Color(0.12f, 0.37f, 0);
+
+    [Space]
+    [Header("Boost Config")]
+    [SerializeField] private float boostSpeedMultiplier = 4f;
+    [SerializeField] private float boostDecayRate = 1.75f;
+    [SerializeField] private float boostDuration = 3f;
 
     [Space]
     [Header("Internal")]
@@ -20,7 +28,7 @@ public class SnakeBehavior : MonoBehaviour
     private List<Transform> snakeBodyParts = new List<Transform>();
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
-
+    private bool isBoosting = false;
     private bool alive = true;
 
     private void Start()
@@ -93,6 +101,7 @@ public class SnakeBehavior : MonoBehaviour
 
         for (int i = 0; i < snakeBodyParts.Count; i++)
         {
+            Transform snakePart = snakeBodyParts[i];
             bool isTheLastSnakePart = i + 1 == snakeBodyParts.Count;
             Vector2Int currentPos = new Vector2Int((int)positionHistoryList[i + 2].x, (int)positionHistoryList[i + 2].y);
             Vector2Int targetPos = new Vector2Int((int)positionHistoryList[i + 1].x, (int)positionHistoryList[i + 1].y);
@@ -107,7 +116,11 @@ public class SnakeBehavior : MonoBehaviour
             if (isTheLastSnakePart)
                 gameGrid.ClearCellState(currentPos);
 
-            snakeBodyParts[i].position = (Vector2)targetPos;
+            snakePart.GetComponent<SpriteRenderer>().color = defaulSnakeColor;
+            if (isThereFoodInTargetPos)
+                snakePart.GetComponent<SpriteRenderer>().color = snakeAndFoodColor;
+
+            snakePart.position = (Vector2)targetPos;
             gameGrid.SetCellState(targetPosNewState, targetPos);
         }
     }
@@ -125,6 +138,35 @@ public class SnakeBehavior : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D) && (lastMovedDir != Direction.LEFT))
             facingDir = Direction.RIGHT;
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isBoosting)
+            StartCoroutine(ExecuteSpeedBoost());
+    }
+
+    private IEnumerator ExecuteSpeedBoost()
+    {
+        isBoosting = true;
+        float originalSpeed = moveIntervalSecs;
+        float boostedSpeed = originalSpeed / boostSpeedMultiplier;
+        moveIntervalSecs = boostedSpeed;
+
+        float elapsedTime = 0f;
+        Color originalColor = snakeHead.GetComponent<SpriteRenderer>().color;
+        snakeHead.GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0.5f);
+
+        while (elapsedTime < boostDuration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            float progress = 1f - Mathf.Exp(-boostDecayRate * (elapsedTime / boostDuration));
+            moveIntervalSecs = Mathf.Lerp(boostedSpeed, originalSpeed, progress);
+
+            yield return null;
+        }
+
+        isBoosting = false;
+        moveIntervalSecs = originalSpeed;
+        snakeHead.GetComponent<SpriteRenderer>().color = originalColor;
     }
 
     private void UpdateSnakeHeadRotation()
