@@ -6183,12 +6183,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 861465751}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostDecayRate
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: snakeBodyPrefab
       value: 
       objectReference: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: moveIntervalSecs
-      value: 0.2
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostSpeedMultiplier
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8496115509416584603, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: m_Name
