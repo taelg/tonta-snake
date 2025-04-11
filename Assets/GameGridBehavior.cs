@@ -18,6 +18,17 @@ public class GameGridBehavior : MonoBehaviour
             {
                 var cell = new GridCell(x, y);
                 grid[new Vector2Int(x, y)] = cell;
+            }
+        }
+    }
+
+    public void Update()
+    {
+        for (int x = -mapLimitInX; x <= mapLimitInX; x++)
+        {
+            for (int y = -mapLimitInY; y <= mapLimitInY; y++)
+            {
+                GridCell cell = grid[new Vector2Int(x, y)];
 
                 // Define as coordenadas do canto inferior esquerdo da célula
                 Vector3 bottomLeft = new Vector3(x * cellSize - (cellSize / 2), y * cellSize - (cellSize / 2), 0);
@@ -25,11 +36,19 @@ public class GameGridBehavior : MonoBehaviour
                 Vector3 topLeft = bottomLeft + new Vector3(0, cellSize, 0);
                 Vector3 topRight = bottomLeft + new Vector3(cellSize, cellSize, 0);
 
-                // Desenha as linhas das células
-                Debug.DrawLine(bottomLeft, bottomRight, Color.green, 100f);
-                Debug.DrawLine(bottomRight, topRight, Color.green, 100f);
-                Debug.DrawLine(topRight, topLeft, Color.green, 100f);
-                Debug.DrawLine(topLeft, bottomLeft, Color.green, 100f);
+                Color color = cell.state == CellState.SNAKE ? Color.red : Color.black;
+                color = cell.state == CellState.FOOD ? Color.green : color;
+                color = cell.state == CellState.SNAKE_AND_FOOD ? Color.blue : color;
+
+                if (cell.state != CellState.EMPTY)
+                {
+                    // Desenha as linhas das células
+                    Debug.DrawLine(bottomLeft, bottomRight, color, 0f);
+                    Debug.DrawLine(bottomRight, topRight, color, 0f);
+                    Debug.DrawLine(topRight, topLeft, color, 0f);
+                    Debug.DrawLine(topLeft, bottomLeft, color, 0f);
+                }
+
             }
         }
     }
@@ -39,7 +58,7 @@ public class GameGridBehavior : MonoBehaviour
         List<GridCell> freeCells = new List<GridCell>();
         foreach (GridCell cell in grid.Values)
         {
-            if (cell.objectInCell == CellObject.EMPTY)
+            if (cell.state == CellState.EMPTY)
                 freeCells.Add(cell);
         }
         return freeCells;
@@ -67,18 +86,23 @@ public class GameGridBehavior : MonoBehaviour
 
     public bool IsGridCellFree(Vector2Int pos)
     {
-        CellObject objectInTheCell = grid[new Vector2Int(pos.x, pos.y)].objectInCell;
-        return objectInTheCell == CellObject.EMPTY || objectInTheCell == CellObject.FOOD;
+        CellState objectInTheCell = grid[new Vector2Int(pos.x, pos.y)].state;
+        return objectInTheCell == CellState.EMPTY || objectInTheCell == CellState.FOOD;
     }
 
-    public void ClearCell(Vector2Int pos)
+    public void ClearCellState(Vector2Int pos)
     {
-        grid[new Vector2Int(pos.x, pos.y)].objectInCell = CellObject.EMPTY;
+        grid[new Vector2Int(pos.x, pos.y)].state = CellState.EMPTY;
     }
 
-    public void OcupyCell(CellObject cellObject, Vector2Int pos)
+    public void SetCellState(CellState cellObject, Vector2Int pos)
     {
-        grid[new Vector2Int(pos.x, pos.y)].objectInCell = cellObject;
+        grid[new Vector2Int(pos.x, pos.y)].state = cellObject;
+    }
+
+    public CellState GetCellState(Vector2Int pos)
+    {
+        return grid[new Vector2Int(pos.x, pos.y)].state;
     }
 
 
@@ -87,7 +111,7 @@ public class GameGridBehavior : MonoBehaviour
 public class GridCell
 {
     public Vector2Int position;
-    public CellObject objectInCell = CellObject.EMPTY;
+    public CellState state = CellState.EMPTY;
 
     public GridCell(int x, int y)
     {
