@@ -49,8 +49,17 @@ public class SaveScoreBehavior : MonoBehaviour
         }
 
         errorLabel.gameObject.SetActive(false);
-        scoreBoard.AddNewScore(inputField.text, score);
-        this.gameObject.SetActive(false);
+        bool isScoreAdded = scoreBoard.AddNewScore(inputField.text, score);
+
+        if (isScoreAdded)
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            errorLabel.text = "your score is not high enough";
+            errorLabel.gameObject.SetActive(true);
+        }
     }
 
 }
