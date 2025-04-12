@@ -9,6 +9,7 @@ public class GameOverPanelBehavior : MonoBehaviour
     [SerializeField] private Button retryButton;
     [SerializeField] private SnakeBehavior snake;
     [SerializeField] private GameGridBehavior grid;
+    [SerializeField] private SaveScoreBehavior saveScorePanel;
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class GameOverPanelBehavior : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         sizeLabel.text = snakeSize.ToString();
+        saveScorePanel.gameObject.SetActive(true);
+        saveScorePanel.SetScore(snakeSize);
     }
 
     private void OnClickRetry()
