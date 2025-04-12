@@ -7423,7 +7423,7 @@ PrefabInstance:
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: gameOverPanel
       value: 
-      objectReference: {fileID: 603055996}
+      objectReference: {fileID: 603055998}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: boostDecayRate
       value: 1.75

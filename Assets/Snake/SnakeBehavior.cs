@@ -83,6 +83,7 @@ public class SnakeBehavior : MonoBehaviour
         else
         {//To reach this else the snake has collided with itself.
             alive = false;
+            gameOverPanel.gameObject.SetActive(true);
             gameOverPanel.ShowFinalScore(snakeBodyParts.Count + 1);
         }
     }

@@ -168,10 +168,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveIntervalSecs: 0.5
+  positionHistorySize: 10
+  defaulSnakeColor: {r: 0.2, g: 0.6, b: 0, a: 1}
+  snakeAndFoodColor: {r: 0.12, g: 0.37, b: 0, a: 1}
+  boostSpeedMultiplier: 4
+  boostDecayRate: 1.75
+  boostDuration: 3
   gameGrid: {fileID: 0}
   snakeHead: {fileID: 3447296939884496136}
   snakeBodiesContainer: {fileID: 1703492171680298665}
   snakeBodyPrefab: {fileID: 0}
+  gameOverPanel: {fileID: 0}
 --- !u!50 &89606694400915519
 Rigidbody2D:
   serializedVersion: 5
