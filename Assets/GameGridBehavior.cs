@@ -105,6 +105,18 @@ public class GameGridBehavior : MonoBehaviour
         return grid[new Vector2Int(pos.x, pos.y)].state;
     }
 
+    public void ResetGrid()
+    {
+        for (int x = -mapLimitInX; x <= mapLimitInX; x++)
+        {
+            for (int y = -mapLimitInY; y <= mapLimitInY; y++)
+            {
+                var cell = grid[new Vector2Int(x, y)];
+                cell.state = CellState.EMPTY;
+            }
+        }
+    }
+
 
 }
 

@@ -23,6 +23,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameObject snakeHead;
     [SerializeField] private GameObject snakeBodiesContainer;
     [SerializeField] private GameObject snakeBodyPrefab;
+    [SerializeField] private GameOverPanelBehavior gameOverPanel;
 
     private LinkedList<Vector2> positionsHistory = new LinkedList<Vector2>();
     private List<Transform> snakeBodyParts = new List<Transform>();
@@ -30,7 +31,6 @@ public class SnakeBehavior : MonoBehaviour
     private Direction lastMovedDir = Direction.NONE;
     private bool isBoosting = false;
     private bool alive = true;
-
     private void Start()
     {
         UpdatePositionHistory();
@@ -81,8 +81,9 @@ public class SnakeBehavior : MonoBehaviour
             gameGrid.SetCellState(targetPosNewState, targetPos);
         }
         else
-        {
-            Debug.Log("cannot move because the cell isn't free. What is in the cell: " + gameGrid.GetCellState(targetPos));
+        {//To reach this else the snake has collided with itself.
+            alive = false;
+            gameOverPanel.ShowFinalScore(snakeBodyParts.Count + 1);
         }
     }
 
@@ -192,6 +193,23 @@ public class SnakeBehavior : MonoBehaviour
     {
         GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
         snakeBodyParts.Add(snakeBody.transform);
+    }
+
+    public void ResetSnake()
+    {
+        foreach (Transform child in snakeBodiesContainer.transform)
+            Destroy(child.gameObject);
+
+        this.transform.position = Vector2.zero;
+        positionsHistory.Clear();
+        snakeBodyParts.Clear();
+        facingDir = Direction.RIGHT;
+        lastMovedDir = Direction.NONE;
+        isBoosting = false;
+        alive = true;
+
+        UpdatePositionHistory();
+        StartCoroutine(MovingConstantly());
     }
 
 
