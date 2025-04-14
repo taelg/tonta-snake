@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
@@ -24,6 +25,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameObject snakeBodiesContainer;
     [SerializeField] private GameObject snakeBodyPrefab;
     [SerializeField] private GameOverPanelBehavior gameOverPanel;
+    [SerializeField] private TMP_Text currentScore;
 
     private LinkedList<Vector2> positionsHistory = new LinkedList<Vector2>();
     private List<Transform> snakeBodyParts = new List<Transform>();
@@ -33,6 +35,7 @@ public class SnakeBehavior : MonoBehaviour
     private bool alive = true;
     private void Start()
     {
+        currentScore.text = "0";
         UpdatePositionHistory();
         StartCoroutine(MovingConstantly());
     }
@@ -194,6 +197,7 @@ public class SnakeBehavior : MonoBehaviour
     {
         GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
         snakeBodyParts.Add(snakeBody.transform);
+        currentScore.text = snakeBodyParts.Count.ToString();
     }
 
     public void ResetSnake()
@@ -201,6 +205,7 @@ public class SnakeBehavior : MonoBehaviour
         foreach (Transform child in snakeBodiesContainer.transform)
             Destroy(child.gameObject);
 
+        currentScore.text = "0";
         this.transform.position = Vector2.zero;
         positionsHistory.Clear();
         snakeBodyParts.Clear();
