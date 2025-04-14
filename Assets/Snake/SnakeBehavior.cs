@@ -9,7 +9,7 @@ public class SnakeBehavior : MonoBehaviour
     [Header("General Config")]
     [SerializeField] private float moveIntervalSecs = 0.35f;
     [SerializeField] private int positionHistorySize = 10;
-    [SerializeField] private Color defaulSnakeColor = new Color(0.2f, 0.6f, 0);
+    [SerializeField] private Color defaultSnakeColor = new Color(0.2f, 0.6f, 0);
     [SerializeField] private Color snakeAndFoodColor = new Color(0.12f, 0.37f, 0);
 
     [Space]
@@ -21,6 +21,7 @@ public class SnakeBehavior : MonoBehaviour
     [Space]
     [Header("Internal")]
     [SerializeField] private GameGridBehavior gameGrid;
+    [SerializeField] private SpriteRenderer headSprite;
     [SerializeField] private GameObject snakeHead;
     [SerializeField] private GameObject snakeBodiesContainer;
     [SerializeField] private GameObject snakeBodyPrefab;
@@ -29,10 +30,13 @@ public class SnakeBehavior : MonoBehaviour
 
     private LinkedList<Vector2> positionsHistory = new LinkedList<Vector2>();
     private List<Transform> snakeBodyParts = new List<Transform>();
+    private List<SpriteRenderer> snakeBodyPartsSprites = new List<SpriteRenderer>();
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
     private bool isBoosting = false;
     private bool alive = true;
+    private int foodAteCount = 0;
+
     private void Start()
     {
         currentScore.text = "0";
@@ -87,7 +91,7 @@ public class SnakeBehavior : MonoBehaviour
         {//To reach this else the snake has collided with itself.
             alive = false;
             gameOverPanel.gameObject.SetActive(true);
-            gameOverPanel.ShowFinalScore(snakeBodyParts.Count + 1);
+            gameOverPanel.ShowFinalScore(foodAteCount);
         }
     }
 
@@ -107,6 +111,7 @@ public class SnakeBehavior : MonoBehaviour
         for (int i = 0; i < snakeBodyParts.Count; i++)
         {
             Transform snakePart = snakeBodyParts[i];
+            SpriteRenderer snakePartSprite = snakeBodyPartsSprites[i];
             bool isTheLastSnakePart = i + 1 == snakeBodyParts.Count;
             Vector2Int currentPos = new Vector2Int((int)positionHistoryList[i + 2].x, (int)positionHistoryList[i + 2].y);
             Vector2Int targetPos = new Vector2Int((int)positionHistoryList[i + 1].x, (int)positionHistoryList[i + 1].y);
@@ -121,9 +126,11 @@ public class SnakeBehavior : MonoBehaviour
             if (isTheLastSnakePart)
                 gameGrid.ClearCellState(currentPos);
 
-            snakePart.GetComponent<SpriteRenderer>().color = defaulSnakeColor;
+            if (snakePartSprite.color != defaultSnakeColor)
+                snakePartSprite.color = defaultSnakeColor;
+
             if (isThereFoodInTargetPos)
-                snakePart.GetComponent<SpriteRenderer>().color = snakeAndFoodColor;
+                snakePartSprite.color = snakeAndFoodColor;
 
             snakePart.position = (Vector2)targetPos;
             gameGrid.SetCellState(targetPosNewState, targetPos);
@@ -156,8 +163,8 @@ public class SnakeBehavior : MonoBehaviour
         moveIntervalSecs = boostedSpeed;
 
         float elapsedTime = 0f;
-        Color originalColor = snakeHead.GetComponent<SpriteRenderer>().color;
-        snakeHead.GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0.5f);
+        Color originalColor = headSprite.color;
+        headSprite.color = new Color(1f, 0.5f, 0.5f);
 
         while (elapsedTime < boostDuration)
         {
@@ -171,7 +178,7 @@ public class SnakeBehavior : MonoBehaviour
 
         isBoosting = false;
         moveIntervalSecs = originalSpeed;
-        snakeHead.GetComponent<SpriteRenderer>().color = originalColor;
+        headSprite.color = originalColor;
     }
 
     private void UpdateSnakeHeadRotation()
@@ -188,16 +195,22 @@ public class SnakeBehavior : MonoBehaviour
                 (int)this.transform.position.x,
                 (int)this.transform.position.y);
 
+            IncreaseFoodAteScore();
             gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos);
-            food.Reposition();
+            food.RestartFood();
         }
+    }
+
+    private void IncreaseFoodAteScore()
+    {
+        currentScore.text = $"{++foodAteCount}";
     }
 
     private void IncreaseSnakeBody()
     {
         GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
         snakeBodyParts.Add(snakeBody.transform);
-        currentScore.text = snakeBodyParts.Count.ToString();
+        snakeBodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
     }
 
     public void ResetSnake()
