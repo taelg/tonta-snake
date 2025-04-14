@@ -222,6 +222,7 @@ public class SnakeBehavior : MonoBehaviour
         this.transform.position = Vector2.zero;
         positionsHistory.Clear();
         snakeBodyParts.Clear();
+        snakeBodyPartsSprites.Clear();
         facingDir = Direction.RIGHT;
         lastMovedDir = Direction.NONE;
         isBoosting = false;
