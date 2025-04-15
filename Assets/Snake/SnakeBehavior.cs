@@ -27,6 +27,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameObject snakeBodyPrefab;
     [SerializeField] private GameOverPanelBehavior gameOverPanel;
     [SerializeField] private TMP_Text currentScore;
+    [SerializeField] private WallsEffectBehavior wallFX;
 
     private LinkedList<Vector2> positionsHistory = new LinkedList<Vector2>();
     private List<Transform> snakeBodyParts = new List<Transform>();
@@ -158,6 +159,7 @@ public class SnakeBehavior : MonoBehaviour
     private IEnumerator ExecuteSpeedBoost()
     {
         isBoosting = true;
+        wallFX.AnimateBoostEffect(boostDuration);
         float originalSpeed = moveIntervalSecs;
         float boostedSpeed = originalSpeed / boostSpeedMultiplier;
         moveIntervalSecs = boostedSpeed;
@@ -168,12 +170,12 @@ public class SnakeBehavior : MonoBehaviour
 
         while (elapsedTime < boostDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += 0.1f;
 
             float progress = 1f - Mathf.Exp(-boostDecayRate * (elapsedTime / boostDuration));
             moveIntervalSecs = Mathf.Lerp(boostedSpeed, originalSpeed, progress);
 
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
         }
 
         isBoosting = false;
@@ -231,6 +233,7 @@ public class SnakeBehavior : MonoBehaviour
         UpdatePositionHistory();
         StartCoroutine(MovingConstantly());
     }
+
 
 
 

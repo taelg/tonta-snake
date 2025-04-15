@@ -167,18 +167,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bf55d18b24e244a98d126feea3f41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveIntervalSecs: 0.5
+  moveIntervalSecs: 0.1
   positionHistorySize: 10
-  defaulSnakeColor: {r: 0.2, g: 0.6, b: 0, a: 1}
+  defaultSnakeColor: {r: 0.2, g: 0.6, b: 0, a: 1}
   snakeAndFoodColor: {r: 0.12, g: 0.37, b: 0, a: 1}
   boostSpeedMultiplier: 4
   boostDecayRate: 1.75
   boostDuration: 3
   gameGrid: {fileID: 0}
+  headSprite: {fileID: 2453819933810068086}
   snakeHead: {fileID: 3447296939884496136}
   snakeBodiesContainer: {fileID: 1703492171680298665}
-  snakeBodyPrefab: {fileID: 0}
+  snakeBodyPrefab: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
   gameOverPanel: {fileID: 0}
+  currentScore: {fileID: 0}
+  teleportMaterial: {fileID: 2100000, guid: 02bd678f71e727b49b4cb5d647a790c5, type: 2}
 --- !u!50 &89606694400915519
 Rigidbody2D:
   serializedVersion: 5
