@@ -190,7 +190,7 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        FoodBehavior food = collision.gameObject.GetComponent<FoodBehavior>();
+        DefaultFoodBehavior food = collision.gameObject.GetComponent<DefaultFoodBehavior>();
         if (food)
         {
             Vector2Int currentPos = new Vector2Int(
@@ -199,7 +199,7 @@ public class SnakeBehavior : MonoBehaviour
 
             IncreaseFoodAteScore();
             gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos);
-            food.RestartFood();
+            food.OnEatFood();
         }
     }
 

@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class FoodBehavior : MonoBehaviour
+public class DefaultFoodBehavior : MonoBehaviour
 {
-
     [SerializeField] private float foodLifeTimeSecs = 10f;
     [SerializeField] private float shrinkDurationSecs = 5f;
     [SerializeField] private float startingScale = 2.5f;
@@ -20,11 +19,18 @@ public class FoodBehavior : MonoBehaviour
         RestartFood();
     }
 
-    public void RestartFood()
+    public virtual void OnEatFood() { } //Each food type implements this differently.
+
+    protected void RestartFood()
     {
         RepositionRandonly();
         StopAllCoroutines();
         StartCoroutine(HandleLifeTime());
+    }
+
+    protected virtual void OnLifetimeEnd()
+    {
+        RestartFood();
     }
 
     private void RepositionRandonly()
@@ -62,7 +68,7 @@ public class FoodBehavior : MonoBehaviour
             yield return null;
         }
 
-        RestartFood();
+        OnLifetimeEnd();
     }
 
 

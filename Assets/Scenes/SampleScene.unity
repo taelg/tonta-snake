@@ -3938,6 +3938,17 @@ MonoBehaviour:
   snake: {fileID: 1962284355}
   grid: {fileID: 861465751}
   saveScorePanel: {fileID: 1108231526}
+--- !u!114 &618509358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+  m_PrefabInstance: {fileID: 3050870376370461263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034e0515e3a931c40b2092ca2d9dc940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -9385,6 +9396,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+--- !u!1001 &3050870376370461263
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 70354726645219132, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_Name
+      value: Special Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: gameGrid
+      value: 
+      objectReference: {fileID: 861465751}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
 --- !u!1001 &6535050810477415048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9437,9 +9509,17 @@ PrefabInstance:
       propertyPath: gameGrid
       value: 
       objectReference: {fileID: 861465751}
+    - target: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
+      propertyPath: specialFood
+      value: 
+      objectReference: {fileID: 618509358}
     - target: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
       propertyPath: m_Name
       value: Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9455,6 +9535,7 @@ SceneRoots:
   - {fileID: 1879530796}
   - {fileID: 1012495768204862413}
   - {fileID: 6535050810477415048}
+  - {fileID: 3050870376370461263}
   - {fileID: 861465752}
   - {fileID: 1286013358}
   - {fileID: 914152395}
