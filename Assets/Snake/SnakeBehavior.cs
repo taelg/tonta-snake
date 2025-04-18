@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
     [Header("General Config")]
     [SerializeField] private float moveIntervalSecs = 0.35f;
-    [SerializeField] private int positionHistorySize = 10;
-    [SerializeField] private Color defaultSnakeColor = new Color(0.2f, 0.6f, 0);
-    [SerializeField] private Color snakeAndFoodColor = new Color(0.12f, 0.37f, 0);
 
     [Space]
     [Header("Boost Config")]
@@ -29,9 +27,9 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private TMP_Text currentScore;
     [SerializeField] private WallsEffectBehavior wallFX;
 
-    private LinkedList<Vector2> positionsHistory = new LinkedList<Vector2>();
-    private List<Transform> snakeBodyParts = new List<Transform>();
+    private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> snakeBodyPartsSprites = new List<SpriteRenderer>();
+    private Transform currentTail;
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
     private bool isBoosting = false;
@@ -40,8 +38,8 @@ public class SnakeBehavior : MonoBehaviour
 
     private void Start()
     {
+        currentTail = this.transform;
         currentScore.text = "0";
-        UpdatePositionHistory();
         StartCoroutine(MovingConstantly());
     }
 
@@ -56,13 +54,45 @@ public class SnakeBehavior : MonoBehaviour
         while (alive)
         {
             yield return new WaitForSeconds(moveIntervalSecs);
-            Move();
-            UpdatePositionHistory();
+
+            OnTailLeaveCell();
             MoveBodies();
+            MoveHead();
+            RecolorSnakeParts();
         }
     }
 
-    private void Move()
+    private void OnTailLeaveCell()
+    {
+        Vector2 tailPos = currentTail.transform.position;
+        CellState tailState = gameGrid.GetCellState(tailPos);
+
+        if (tailState == CellState.SNAKE)
+        {
+            gameGrid.SetCellState(CellState.EMPTY, tailPos);
+        }
+        else if (tailState == CellState.SNAKE_AND_FOOD)
+        {
+            gameGrid.SetCellState(CellState.SNAKE, tailPos);
+            IncreaseSnakeBody(tailPos);
+        }
+
+    }
+
+    private void MoveBodies()
+    {
+        Vector2 snakeHeadPos = this.transform.position;
+        Vector2 bodyPartTargetPos = snakeHeadPos;
+
+        foreach (BodyPartBehavior bodyPart in bodyParts)
+        {
+            Vector2 bodyPartOldPos = bodyPart.transform.position;
+            bodyPart.MoveTo(bodyPartTargetPos);
+            bodyPartTargetPos = bodyPartOldPos;
+        }
+    }
+
+    private void MoveHead()
     {
         Vector2 moveDir = facingDir.ToVector2();
         Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
@@ -73,68 +103,31 @@ public class SnakeBehavior : MonoBehaviour
         if (isTargetCellFree)
         {
             lastMovedDir = facingDir;
-            bool isTheLastSnakePart = snakeBodyParts.Count == 0;
-            CellState currentCellState = gameGrid.GetCellState(currentPos);
-            bool shouldIncreaseNow = isTheLastSnakePart && currentCellState == CellState.SNAKE_AND_FOOD;
             bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
             CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
-
-            if (shouldIncreaseNow)
-                IncreaseSnakeBody();
-
-            if (isTheLastSnakePart)
-                gameGrid.ClearCellState(currentPos);
 
             this.transform.position = (Vector2)targetPos;
             gameGrid.SetCellState(targetPosNewState, targetPos);
         }
         else
-        {//To reach this else the snake has collided with itself.
-            alive = false;
-            gameOverPanel.gameObject.SetActive(true);
-            gameOverPanel.ShowFinalScore(foodAteCount);
+        {
+            Die();
         }
     }
 
-    private void UpdatePositionHistory()
+    private void Die()
     {
-        positionsHistory.AddFirst(transform.position);
-
-        bool posHistoryNeedTrim = positionsHistory.Count > snakeBodyParts.Count + positionHistorySize;
-        if (posHistoryNeedTrim)
-            positionsHistory.RemoveLast();
+        alive = false;
+        gameOverPanel.gameObject.SetActive(true);
+        gameOverPanel.ShowFinalScore(foodAteCount);
     }
 
-    private void MoveBodies()
+    private void RecolorSnakeParts()
     {
-        List<Vector2> positionHistoryList = positionsHistory.ToList();
-
-        for (int i = 0; i < snakeBodyParts.Count; i++)
+        foreach (BodyPartBehavior bodyPart in bodyParts)
         {
-            Transform snakePart = snakeBodyParts[i];
-            SpriteRenderer snakePartSprite = snakeBodyPartsSprites[i];
-            bool isTheLastSnakePart = i + 1 == snakeBodyParts.Count;
-            Vector2Int currentPos = new Vector2Int((int)positionHistoryList[i + 2].x, (int)positionHistoryList[i + 2].y);
-            Vector2Int targetPos = new Vector2Int((int)positionHistoryList[i + 1].x, (int)positionHistoryList[i + 1].y);
-            CellState currentCellState = gameGrid.GetCellState(currentPos);
-            bool shouldIncreaseNow = isTheLastSnakePart && currentCellState == CellState.SNAKE_AND_FOOD;
-            bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.SNAKE_AND_FOOD;
-            CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
-
-            if (shouldIncreaseNow)
-                IncreaseSnakeBody();
-
-            if (isTheLastSnakePart)
-                gameGrid.ClearCellState(currentPos);
-
-            if (snakePartSprite.color != defaultSnakeColor)
-                snakePartSprite.color = defaultSnakeColor;
-
-            if (isThereFoodInTargetPos)
-                snakePartSprite.color = snakeAndFoodColor;
-
-            snakePart.position = (Vector2)targetPos;
-            gameGrid.SetCellState(targetPosNewState, targetPos);
+            CellState state = gameGrid.GetCellState(bodyPart.transform.position);
+            bodyPart.UpdateColor(state);
         }
     }
 
@@ -208,11 +201,13 @@ public class SnakeBehavior : MonoBehaviour
         currentScore.text = $"{++foodAteCount}";
     }
 
-    private void IncreaseSnakeBody()
+    private void IncreaseSnakeBody(Vector2 tailPos)
     {
         GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
-        snakeBodyParts.Add(snakeBody.transform);
+        bodyParts.Add(snakeBody.GetComponent<BodyPartBehavior>());
         snakeBodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
+        snakeBody.transform.position = tailPos;
+        currentTail = snakeBody.transform;
     }
 
     public void ResetSnake()
@@ -220,17 +215,16 @@ public class SnakeBehavior : MonoBehaviour
         foreach (Transform child in snakeBodiesContainer.transform)
             Destroy(child.gameObject);
 
+        currentTail = this.transform;
         currentScore.text = "0";
         this.transform.position = Vector2.zero;
-        positionsHistory.Clear();
-        snakeBodyParts.Clear();
+        bodyParts.Clear();
         snakeBodyPartsSprites.Clear();
         facingDir = Direction.RIGHT;
         lastMovedDir = Direction.NONE;
         isBoosting = false;
         alive = true;
 
-        UpdatePositionHistory();
         StartCoroutine(MovingConstantly());
     }
 

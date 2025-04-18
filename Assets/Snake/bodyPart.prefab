@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5887208630587468358}
+  - component: {fileID: 6949167451181325003}
   - component: {fileID: 2442379885334441448}
   - component: {fileID: 8259004656147886453}
-  - component: {fileID: 6714127696512826815}
   m_Layer: 0
-  m_Name: snakebody
+  m_Name: bodyPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,6 +34,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6949167451181325003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9174609954592770686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f530914169bc9a47ad2bf616d2bc3fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 2442379885334441448}
+  colorMap: {fileID: 11400000, guid: 40e7f1eeeb95bb3489ccb31e062ec969, type: 2}
 --- !u!212 &2442379885334441448
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -135,15 +149,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &6714127696512826815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9174609954592770686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3fdbcb2053c7bb49be5649f7bed9082, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

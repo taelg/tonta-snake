@@ -8590,6 +8590,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Padding: {x: -8, y: -5, z: -8, w: -5}
   m_Softness: {x: 0, y: 0}
+--- !u!1 &1674030234
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1674030235}
+  m_Layer: 0
+  m_Name: Snake Bodies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1674030235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674030234}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724764226
 GameObject:
   m_ObjectHideFlags: 0
@@ -9341,6 +9372,10 @@ PrefabInstance:
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 603055998}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: snakeBodiesContainer
+      value: 
+      objectReference: {fileID: 1674030234}
     - target: {fileID: 8496115509416584603, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: m_Name
       value: Snake
@@ -9537,6 +9572,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1879530796}
   - {fileID: 1012495768204862413}
+  - {fileID: 1674030235}
   - {fileID: 6535050810477415048}
   - {fileID: 3050870376370461263}
   - {fileID: 861465752}

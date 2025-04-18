@@ -107,14 +107,14 @@ public class GameGridBehavior : MonoBehaviour
         grid[pos.x, pos.y].state = CellState.EMPTY;
     }
 
-    public void SetCellState(CellState cellObject, Vector2Int pos)
+    public void SetCellState(CellState cellObject, Vector2 pos)
     {
-        grid[pos.x, pos.y].state = cellObject;
+        grid[(int)pos.x, (int)pos.y].state = cellObject;
     }
 
-    public CellState GetCellState(Vector2Int pos)
+    public CellState GetCellState(Vector2 pos)
     {
-        return grid[pos.x, pos.y].state;
+        return grid[(int)pos.x, (int)pos.y].state;
     }
 
     public void ClearGrid()

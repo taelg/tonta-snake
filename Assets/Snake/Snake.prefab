@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1703492171680298665
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 372122761973856071}
-  m_Layer: 0
-  m_Name: Snake Bodies
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &372122761973856071
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1703492171680298665}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1898413911707082929}
-  m_Father: {fileID: 8881649249300185537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3447296939884496136
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +100,7 @@ GameObject:
   - component: {fileID: 89606694400915519}
   - component: {fileID: 5225337497547733470}
   m_Layer: 0
-  m_Name: Snake
+  m_Name: snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +120,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 608210180128981430}
-  - {fileID: 372122761973856071}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6618268743655767046
@@ -177,11 +144,11 @@ MonoBehaviour:
   gameGrid: {fileID: 0}
   headSprite: {fileID: 2453819933810068086}
   snakeHead: {fileID: 3447296939884496136}
-  snakeBodiesContainer: {fileID: 1703492171680298665}
+  snakeBodiesContainer: {fileID: 0}
   snakeBodyPrefab: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
   gameOverPanel: {fileID: 0}
   currentScore: {fileID: 0}
-  teleportMaterial: {fileID: 2100000, guid: 02bd678f71e727b49b4cb5d647a790c5, type: 2}
+  wallFX: {fileID: 0}
 --- !u!50 &89606694400915519
 Rigidbody2D:
   serializedVersion: 5
@@ -255,65 +222,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1001 &5470488618729622263
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 372122761973856071}
-    m_Modifications:
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-      propertyPath: m_Name
-      value: snakebody
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
---- !u!4 &1898413911707082929 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5887208630587468358, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
-  m_PrefabInstance: {fileID: 5470488618729622263}
-  m_PrefabAsset: {fileID: 0}
