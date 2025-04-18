@@ -26,7 +26,7 @@ public class GameOverPanelBehavior : MonoBehaviour
 
     private void OnClickRetry()
     {
-        grid.ResetGrid();
+        grid.ClearGrid();
         snake.ResetSnake();
         this.gameObject.SetActive(false);
     }

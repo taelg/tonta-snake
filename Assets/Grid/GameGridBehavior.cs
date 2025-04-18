@@ -3,35 +3,48 @@ using UnityEngine;
 
 public class GameGridBehavior : MonoBehaviour
 {
-    private Dictionary<Vector2Int, GridCell> grid = new Dictionary<Vector2Int, GridCell>();
-    public float cellSize = 1.125f;
-    private int mapLimitInX = 15;
-    private int mapLimitInY = 8;
-
-
+    private int gridWidth = 31;
+    private int gridHeight = 17;
+    private GridCell[,] grid;
 
     private void Awake()
     {
-        for (int x = -mapLimitInX; x <= mapLimitInX; x++)
+        InitializeGrid();
+        PopulateGridWithCells();
+    }
+
+    private void InitializeGrid()
+    {
+        grid = new GridCell[gridWidth, gridHeight];
+    }
+
+    private void PopulateGridWithCells()
+    {
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = -mapLimitInY; y <= mapLimitInY; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
                 var cell = new GridCell(x, y);
-                grid[new Vector2Int(x, y)] = cell;
+                grid[x, y] = cell;
             }
         }
     }
 
-    public void Update()
+    private void Update()
     {
-        for (int x = -mapLimitInX; x <= mapLimitInX; x++)
-        {
-            for (int y = -mapLimitInY; y <= mapLimitInY; y++)
-            {
-                GridCell cell = grid[new Vector2Int(x, y)];
+        DrawDebugBoxes();
+    }
 
-                // Define as coordenadas do canto inferior esquerdo da célula
-                Vector3 bottomLeft = new Vector3(x * cellSize - (cellSize / 2), y * cellSize - (cellSize / 2), 0);
+    private void DrawDebugBoxes()
+    {
+        int cellSize = 1;
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                GridCell cell = grid[x, y];
+
+                Vector3 bottomLeft = new Vector3((x * cellSize) - (cellSize / 2f), (y * cellSize) - (cellSize / 2f), 0);
                 Vector3 bottomRight = bottomLeft + new Vector3(cellSize, 0, 0);
                 Vector3 topLeft = bottomLeft + new Vector3(0, cellSize, 0);
                 Vector3 topRight = bottomLeft + new Vector3(cellSize, cellSize, 0);
@@ -42,92 +55,79 @@ public class GameGridBehavior : MonoBehaviour
 
                 if (cell.state != CellState.EMPTY)
                 {
-                    // Desenha as linhas das células
                     Debug.DrawLine(bottomLeft, bottomRight, color, 0f);
                     Debug.DrawLine(bottomRight, topRight, color, 0f);
                     Debug.DrawLine(topRight, topLeft, color, 0f);
                     Debug.DrawLine(topLeft, bottomLeft, color, 0f);
                 }
-
             }
         }
     }
 
-    private List<GridCell> GetFreeCells()
+
+    public Vector2Int GetRandomEmptyCell()
     {
-        List<GridCell> freeCells = new List<GridCell>();
-        foreach (GridCell cell in grid.Values)
-        {
-            if (cell.state == CellState.EMPTY)
-                freeCells.Add(cell);
-        }
-        return freeCells;
+        List<GridCell> freeCells = GetAllEmptyCells();
+        return freeCells[Random.Range(0, freeCells.Count)].GetPosition();
     }
 
-    public Vector2Int GetRandomFreeCellPosition()
+    private List<GridCell> GetAllEmptyCells()
     {
-        List<GridCell> freeCells = GetFreeCells();
-        return freeCells[Random.Range(0, freeCells.Count)].position;
+        List<GridCell> emptyCells = new List<GridCell>();
+        foreach (GridCell cell in grid)
+        {
+            if (cell.state == CellState.EMPTY)
+                emptyCells.Add(cell);
+        }
+        return emptyCells;
     }
 
     public Vector2Int MirrorPositionIfOutOfBounds(Vector2Int pos)
     {
-        pos.x = MirrorCoordinate(pos.x, mapLimitInX);
-        pos.y = MirrorCoordinate(pos.y, mapLimitInY);
+        pos.x = MirrorCoordinate(pos.x, gridWidth);
+        pos.y = MirrorCoordinate(pos.y, gridHeight);
         return pos;
     }
 
-    private int MirrorCoordinate(int value, int limit)
+    private int MirrorCoordinate(int value, int totalSize)
     {
-        if (value > limit) return -limit;
-        if (value < -limit) return limit;
+        if (value >= totalSize) return 0;
+        if (value < 0) return totalSize - 1;
         return value;
     }
 
     public bool IsGridCellFree(Vector2Int pos)
     {
-        CellState objectInTheCell = grid[new Vector2Int(pos.x, pos.y)].state;
+        CellState objectInTheCell = grid[pos.x, pos.y].state;
         return objectInTheCell == CellState.EMPTY || objectInTheCell == CellState.FOOD;
     }
 
     public void ClearCellState(Vector2Int pos)
     {
-        grid[new Vector2Int(pos.x, pos.y)].state = CellState.EMPTY;
+        grid[pos.x, pos.y].state = CellState.EMPTY;
     }
 
     public void SetCellState(CellState cellObject, Vector2Int pos)
     {
-        grid[new Vector2Int(pos.x, pos.y)].state = cellObject;
+        grid[pos.x, pos.y].state = cellObject;
     }
 
     public CellState GetCellState(Vector2Int pos)
     {
-        return grid[new Vector2Int(pos.x, pos.y)].state;
+        return grid[pos.x, pos.y].state;
     }
 
-    public void ResetGrid()
+    public void ClearGrid()
     {
-        for (int x = -mapLimitInX; x <= mapLimitInX; x++)
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (int y = -mapLimitInY; y <= mapLimitInY; y++)
+            for (int y = 0; y < gridHeight; y++)
             {
-                var cell = grid[new Vector2Int(x, y)];
+                var cell = grid[x, y];
                 cell.state = CellState.EMPTY;
             }
         }
     }
 
-
-}
-
-public class GridCell
-{
-    public Vector2Int position;
-    public CellState state = CellState.EMPTY;
-
-    public GridCell(int x, int y)
-    {
-        this.position = new Vector2Int(x, y);
-    }
 
 }

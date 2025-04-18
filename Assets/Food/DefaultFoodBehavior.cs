@@ -35,7 +35,7 @@ public class DefaultFoodBehavior : MonoBehaviour
 
     private void RepositionRandonly()
     {
-        Vector2Int newPos = gameGrid.GetRandomFreeCellPosition();
+        Vector2Int newPos = gameGrid.GetRandomEmptyCell();
         gameGrid.SetCellState(CellState.FOOD, newPos);
         this.transform.position = new Vector2(newPos.x, newPos.y);
     }
