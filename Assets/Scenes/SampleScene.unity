@@ -7562,9 +7562,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6ff00020bd58e47b3e3929fc3979f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teleportMaterial: {fileID: 2100000, guid: 02bd678f71e727b49b4cb5d647a790c5, type: 2}
+  defaultScrollSpeed: 0.1
+  defaultColor1: {r: 0.1764706, g: 0.78431374, b: 0.78431374, a: 1}
+  defaultColor2: {r: 0.21960784, g: 0.27058825, b: 0.41568628, a: 1}
+  defaultColor3: {r: 0.18039216, g: 0.23137255, b: 0.37254903, a: 1}
   boostingScrollSpeed: 0.75
-  boostingThirdColor: {r: 0.5882353, g: 0.39215687, b: 0, a: 1}
+  boostingColor3: {r: 0.5176471, g: 0.42352942, b: 0.17254902, a: 1}
+  teleportMaterial: {fileID: 2100000, guid: 02bd678f71e727b49b4cb5d647a790c5, type: 2}
 --- !u!1 &1108231524
 GameObject:
   m_ObjectHideFlags: 0
