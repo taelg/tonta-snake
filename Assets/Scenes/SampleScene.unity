@@ -7568,6 +7568,7 @@ MonoBehaviour:
   defaultColor3: {r: 0.18039216, g: 0.23137255, b: 0.37254903, a: 1}
   boostingScrollSpeed: 0.75
   boostingColor3: {r: 0.5176471, g: 0.42352942, b: 0.17254902, a: 1}
+  pinkFoodColor2: {r: 0.8018868, g: 0.16264686, b: 0.6673099, a: 1}
   teleportMaterial: {fileID: 2100000, guid: 02bd678f71e727b49b4cb5d647a790c5, type: 2}
 --- !u!1 &1108231524
 GameObject:

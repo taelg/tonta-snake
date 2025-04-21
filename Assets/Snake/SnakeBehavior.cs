@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -81,9 +82,13 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnTailLeaveFoodType(FoodType foodType, Vector2 tailPos)
     {
-        //For now all food types have the same behavior, but I left this method prepared for diferent food type behaviors.
-        if (foodType == FoodType.GREEN || foodType == FoodType.PINK)
-            IncreaseSnakeBody(tailPos);
+        if (foodType == FoodType.NONE)
+            return;
+
+        IncreaseSnakeBody(tailPos);
+
+        if (foodType == FoodType.PINK)
+            wallFX.EndPinkFoodEffect();
     }
 
     private void MoveBodies()
@@ -148,6 +153,16 @@ public class SnakeBehavior : MonoBehaviour
 
         currentTail = bodyParts[splitOnIndex - 1].transform;
 
+        ClearBoardCellsOnSplitSnake(splitOnIndex);
+        gameGrid.SetCellState(CellState.SNAKE, targetPos);
+
+        bodyParts.RemoveRange(splitOnIndex, removalSize);
+        bodyPartsSprites.RemoveRange(splitOnIndex, removalSize);
+        wallFX.EndPinkFoodEffect();
+    }
+
+    private void ClearBoardCellsOnSplitSnake(int splitOnIndex)
+    {
         for (int i = splitOnIndex; i < bodyParts.Count; i++)
         {
             Vector2 clearPos = bodyParts[i].transform.position;
@@ -155,14 +170,6 @@ public class SnakeBehavior : MonoBehaviour
             Destroy(bodyParts[i].transform.gameObject);
             Destroy(bodyPartsSprites[i].transform.gameObject);
         }
-        gameGrid.SetCellState(CellState.SNAKE, targetPos);
-
-        bodyParts.RemoveRange(splitOnIndex, removalSize);
-        bodyPartsSprites.RemoveRange(splitOnIndex, removalSize);
-    }
-
-    private void ClearBoardCellsOnSplitSnake(int splitOnIndex, int snakeSize)
-    {
     }
 
     private int FindBodyPartIndexOnPos(Vector2Int pos)
@@ -261,7 +268,14 @@ public class SnakeBehavior : MonoBehaviour
             IncreaseFoodAteScore();
             gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos, food.GetFoodType());
             food.OnEatFood();
+            OnSnakeEatFood(food.GetFoodType());
         }
+    }
+
+    private void OnSnakeEatFood(FoodType foodType)
+    {
+        if (foodType == FoodType.PINK)
+            wallFX.StartPinkFoodEffect();
     }
 
     private void IncreaseFoodAteScore()

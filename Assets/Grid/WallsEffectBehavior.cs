@@ -15,6 +15,10 @@ public class WallsEffectBehavior : MonoBehaviour
     [SerializeField] private Color boostingColor3;
 
     [Space]
+    [Header("Snake Pink Food FX")]
+    [SerializeField] private Color pinkFoodColor2;
+
+    [Space]
     [Header("Internal")]
     [SerializeField] private Material teleportMaterial;
 
@@ -41,8 +45,17 @@ public class WallsEffectBehavior : MonoBehaviour
     {
         SetScrollSpeed(0.75f);
         SetColor(3, boostingColor3);
-        StartCoroutine(ResetFXAfterDelay(boostDuration * 0.75f));
+        StartCoroutine(ResetFXAfterDelay(boostDuration));
+    }
 
+    public void StartPinkFoodEffect()
+    {
+        SetColor(2, pinkFoodColor2);
+    }
+
+    public void EndPinkFoodEffect()
+    {
+        SetColor(2, defaultColor2);
     }
 
     private void SetScrollSpeed(float speed)
