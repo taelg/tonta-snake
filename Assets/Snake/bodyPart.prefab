@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 2442379885334441448}
-  colorMap: {fileID: 11400000, guid: 40e7f1eeeb95bb3489ccb31e062ec969, type: 2}
+  stateColorMap: {fileID: 11400000, guid: 40e7f1eeeb95bb3489ccb31e062ec969, type: 2}
+  foodTypeColorMap: {fileID: 11400000, guid: 6d4c620a8c25ca844ae96b6d0e8d666d, type: 2}
 --- !u!212 &2442379885334441448
 SpriteRenderer:
   m_ObjectHideFlags: 0

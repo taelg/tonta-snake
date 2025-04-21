@@ -73,7 +73,7 @@ public class SnakeBehavior : MonoBehaviour
         }
         else if (tailState == CellState.SNAKE_AND_FOOD)
         {
-            FoodType foodType = gameGrid.GetFoodTypeInCell(tailPos);
+            FoodType foodType = gameGrid.GetFoodType(tailPos);
             gameGrid.SetCellState(CellState.SNAKE, tailPos);
             OnTailLeaveFoodType(foodType, tailPos);
         }
@@ -111,7 +111,7 @@ public class SnakeBehavior : MonoBehaviour
         {
             lastMovedDir = facingDir;
             bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
-            FoodType foodType = gameGrid.GetFoodTypeInCell(targetPos);
+            FoodType foodType = gameGrid.GetFoodType(targetPos);
             CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
 
             this.transform.position = (Vector2)targetPos;
@@ -135,7 +135,8 @@ public class SnakeBehavior : MonoBehaviour
         foreach (BodyPartBehavior bodyPart in bodyParts)
         {
             CellState state = gameGrid.GetCellState(bodyPart.transform.position);
-            bodyPart.UpdateColor(state);
+            FoodType foodType = gameGrid.GetFoodType(bodyPart.transform.position);
+            bodyPart.UpdateColor(state, foodType);
         }
     }
 

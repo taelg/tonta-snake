@@ -10,7 +10,7 @@ public class GreenFoodBehavior : DefaultFoodBehavior
     {
         RestartFood();
         ateCounter++;
-        if (ateCounter % 10 == 0)
+        if (ateCounter % 2 == 0)
         {
             pinkFood.ActiveSpecialFood();
         }

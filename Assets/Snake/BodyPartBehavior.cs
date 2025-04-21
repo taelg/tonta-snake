@@ -3,7 +3,8 @@ using UnityEngine;
 public class BodyPartBehavior : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
-    [SerializeField] private CellStateColorMap colorMap;
+    [SerializeField] private CellStateColorMap stateColorMap;
+    [SerializeField] private FoodTypeColorMap foodTypeColorMap;
 
     public void SetColor(Color color)
     {
@@ -16,10 +17,13 @@ public class BodyPartBehavior : MonoBehaviour
     }
 
 
-    public void UpdateColor(CellState state)
+    public void UpdateColor(CellState state, FoodType foodType)
     {
-        Color color = colorMap.GetColor(state);
-        sprite.color = color;
+        bool stateContainsFood = state == CellState.FOOD || state == CellState.SNAKE_AND_FOOD;
+        Color newColor = stateContainsFood ? foodTypeColorMap.GetColor(foodType) : stateColorMap.GetColor(state);
+
+        if (sprite.color != newColor)
+            sprite.color = newColor;
     }
 
 

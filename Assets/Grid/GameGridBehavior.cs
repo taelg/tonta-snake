@@ -153,7 +153,7 @@ public class GameGridBehavior : MonoBehaviour
         return grid[(int)pos.x, (int)pos.y].state;
     }
 
-    public FoodType GetFoodTypeInCell(Vector2 pos)
+    public FoodType GetFoodType(Vector2 pos)
     {
         return grid[(int)pos.x, (int)pos.y].foodType;
     }

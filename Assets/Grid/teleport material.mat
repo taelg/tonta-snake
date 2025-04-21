@@ -83,11 +83,11 @@ Material:
     - _Zoom: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color2: {r: 0.1764706, g: 0.227451, b: 0.37254903, a: 1}
-    - _Color3: {r: 0.5882353, g: 0.39215672, b: 0, a: 1}
+    - _Color2: {r: 0.21960784, g: 0.27058825, b: 0.41568628, a: 1}
+    - _Color3: {r: 0.18039216, g: 0.23137255, b: 0.37254903, a: 1}
     - _ColorA: {r: 0, g: 1, b: 1, a: 1}
     - _ColorB: {r: 1, g: 0.49019608, b: 0, a: 1}
-    - _MainColor: {r: 0.17475075, g: 0.78431374, b: 0.78431374, a: 1}
+    - _MainColor: {r: 0.1764706, g: 0.78431374, b: 0.78431374, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
