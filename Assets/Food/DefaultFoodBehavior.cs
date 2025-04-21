@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
 public class DefaultFoodBehavior : MonoBehaviour
 {
@@ -31,6 +32,8 @@ public class DefaultFoodBehavior : MonoBehaviour
 
     protected virtual void OnLifetimeEnd()
     {
+        Vector2 foodPos = this.transform.position;
+        gameGrid.ClearCellData(new Vector2Int((int)foodPos.x, (int)foodPos.y));
         RestartFood();
     }
 
