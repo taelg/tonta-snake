@@ -9444,7 +9444,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 70354726645219132, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_Name
-      value: Special Food
+      value: Pink Food
       objectReference: {fileID: 0}
     - target: {fileID: 70354726645219132, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_IsActive
@@ -9489,6 +9489,10 @@ PrefabInstance:
     - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
+      propertyPath: foodType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: gameGrid
@@ -9552,12 +9556,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 861465751}
     - target: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
+      propertyPath: pinkFood
+      value: 
+      objectReference: {fileID: 618509358}
+    - target: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
       propertyPath: specialFood
       value: 
       objectReference: {fileID: 618509358}
     - target: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
       propertyPath: m_Name
-      value: Food
+      value: Green Food
       objectReference: {fileID: 0}
     - target: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
       propertyPath: m_IsActive

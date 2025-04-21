@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b701d64479ed14890306df84c8e792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foodType: 0
   foodLifeTimeSecs: 10
   shrinkDurationSecs: 5
   startingScale: 2.5
@@ -54,7 +55,7 @@ MonoBehaviour:
   endingAlpha: 0.25
   gameGrid: {fileID: 0}
   sprite: {fileID: 1824322492153991082}
-  specialFood: {fileID: 0}
+  pinkFood: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
 --- !u!212 &1824322492153991082
 SpriteRenderer:
   m_ObjectHideFlags: 0

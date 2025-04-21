@@ -32,7 +32,8 @@ public class GameGridBehavior : MonoBehaviour
 
     private void Update()
     {
-        DrawDebugBoxes();
+        //DrawDebugBoxes();
+        DrawDebugFoodBoxes();
     }
 
     private void DrawDebugBoxes()
@@ -52,6 +53,35 @@ public class GameGridBehavior : MonoBehaviour
                 Color color = cell.state == CellState.SNAKE ? Color.red : Color.black;
                 color = cell.state == CellState.FOOD ? Color.green : color;
                 color = cell.state == CellState.SNAKE_AND_FOOD ? Color.blue : color;
+
+                if (cell.state != CellState.EMPTY)
+                {
+                    Debug.DrawLine(bottomLeft, bottomRight, color, 0f);
+                    Debug.DrawLine(bottomRight, topRight, color, 0f);
+                    Debug.DrawLine(topRight, topLeft, color, 0f);
+                    Debug.DrawLine(topLeft, bottomLeft, color, 0f);
+                }
+            }
+        }
+    }
+
+    private void DrawDebugFoodBoxes()
+    {
+        int cellSize = 1;
+        for (int x = 0; x < gridWidth; x++)
+        {
+            for (int y = 0; y < gridHeight; y++)
+            {
+                GridCell cell = grid[x, y];
+
+                Vector3 bottomLeft = new Vector3((x * cellSize) - (cellSize / 2f), (y * cellSize) - (cellSize / 2f), 0);
+                Vector3 bottomRight = bottomLeft + new Vector3(cellSize, 0, 0);
+                Vector3 topLeft = bottomLeft + new Vector3(0, cellSize, 0);
+                Vector3 topRight = bottomLeft + new Vector3(cellSize, cellSize, 0);
+
+                Color color = cell.foodType == FoodType.GREEN ? Color.green : Color.black;
+                color = cell.foodType == FoodType.PINK ? Color.magenta : color;
+                color = cell.foodType == FoodType.NONE ? Color.white : color;
 
                 if (cell.state != CellState.EMPTY)
                 {
@@ -107,14 +137,21 @@ public class GameGridBehavior : MonoBehaviour
         grid[pos.x, pos.y].state = CellState.EMPTY;
     }
 
-    public void SetCellState(CellState cellObject, Vector2 pos)
+    public void SetCellState(CellState cellObject, Vector2 pos, FoodType foodType = FoodType.NONE)
     {
-        grid[(int)pos.x, (int)pos.y].state = cellObject;
+        GridCell cell = grid[(int)pos.x, (int)pos.y];
+        cell.state = cellObject;
+        cell.foodType = foodType;
     }
 
     public CellState GetCellState(Vector2 pos)
     {
         return grid[(int)pos.x, (int)pos.y].state;
+    }
+
+    public FoodType GetFoodTypeInCell(Vector2 pos)
+    {
+        return grid[(int)pos.x, (int)pos.y].foodType;
     }
 
     public void ClearGrid()

@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class BasicFoodBehavior : DefaultFoodBehavior
+public class GreenFoodBehavior : DefaultFoodBehavior
 {
-    [SerializeField] private SpecialFoodBehavior specialFood;
+    [SerializeField] private PinkFoodBehavior pinkFood;
     private int ateCounter = 0;
 
     public override void OnEatFood()
@@ -12,7 +12,7 @@ public class BasicFoodBehavior : DefaultFoodBehavior
         ateCounter++;
         if (ateCounter % 10 == 0)
         {
-            specialFood.ActiveSpecialFood();
+            pinkFood.ActiveSpecialFood();
         }
     }
 

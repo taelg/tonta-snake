@@ -73,10 +73,17 @@ public class SnakeBehavior : MonoBehaviour
         }
         else if (tailState == CellState.SNAKE_AND_FOOD)
         {
+            FoodType foodType = gameGrid.GetFoodTypeInCell(tailPos);
             gameGrid.SetCellState(CellState.SNAKE, tailPos);
-            IncreaseSnakeBody(tailPos);
+            OnTailLeaveFoodType(foodType, tailPos);
         }
+    }
 
+    private void OnTailLeaveFoodType(FoodType foodType, Vector2 tailPos)
+    {
+        //For now all food types have the same behavior, but I left this method prepared for diferent food type behaviors.
+        if (foodType == FoodType.GREEN || foodType == FoodType.PINK)
+            IncreaseSnakeBody(tailPos);
     }
 
     private void MoveBodies()
@@ -104,10 +111,11 @@ public class SnakeBehavior : MonoBehaviour
         {
             lastMovedDir = facingDir;
             bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
+            FoodType foodType = gameGrid.GetFoodTypeInCell(targetPos);
             CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
 
             this.transform.position = (Vector2)targetPos;
-            gameGrid.SetCellState(targetPosNewState, targetPos);
+            gameGrid.SetCellState(targetPosNewState, targetPos, foodType);
         }
         else
         {
@@ -191,7 +199,7 @@ public class SnakeBehavior : MonoBehaviour
                 (int)this.transform.position.y);
 
             IncreaseFoodAteScore();
-            gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos);
+            gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos, food.GetFoodType());
             food.OnEatFood();
         }
     }

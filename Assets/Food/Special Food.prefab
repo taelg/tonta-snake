@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 034e0515e3a931c40b2092ca2d9dc940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  foodType: 1
   foodLifeTimeSecs: 10
   shrinkDurationSecs: 5
   startingScale: 2.5

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpecialFoodBehavior : DefaultFoodBehavior
+public class PinkFoodBehavior : DefaultFoodBehavior
 {
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] SpriteRenderer spriteRenderer;

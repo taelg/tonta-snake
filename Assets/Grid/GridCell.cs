@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GridCell
@@ -6,6 +5,7 @@ public class GridCell
     private int posX;
     private int posY;
     public CellState state = CellState.EMPTY;
+    public FoodType foodType = FoodType.NONE;
 
     public GridCell(int x, int y)
     {

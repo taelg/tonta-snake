@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DefaultFoodBehavior : MonoBehaviour
 {
+    [SerializeField] private FoodType foodType;
     [SerializeField] private float foodLifeTimeSecs = 10f;
     [SerializeField] private float shrinkDurationSecs = 5f;
     [SerializeField] private float startingScale = 2.5f;
@@ -36,7 +37,7 @@ public class DefaultFoodBehavior : MonoBehaviour
     private void RepositionRandonly()
     {
         Vector2Int newPos = gameGrid.GetRandomEmptyCell();
-        gameGrid.SetCellState(CellState.FOOD, newPos);
+        gameGrid.SetCellState(CellState.FOOD, newPos, foodType);
         this.transform.position = new Vector2(newPos.x, newPos.y);
     }
 
@@ -78,6 +79,11 @@ public class DefaultFoodBehavior : MonoBehaviour
         currentColor.a = a;
         sprite.color = currentColor;
 
+    }
+
+    public FoodType GetFoodType()
+    {
+        return foodType;
     }
 
 
