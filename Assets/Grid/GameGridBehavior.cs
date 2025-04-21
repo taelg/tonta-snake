@@ -32,8 +32,7 @@ public class GameGridBehavior : MonoBehaviour
 
     private void Update()
     {
-        //DrawDebugBoxes();
-        DrawDebugFoodBoxes();
+        DrawDebugBoxes();
     }
 
     private void DrawDebugBoxes()
@@ -50,9 +49,14 @@ public class GameGridBehavior : MonoBehaviour
                 Vector3 topLeft = bottomLeft + new Vector3(0, cellSize, 0);
                 Vector3 topRight = bottomLeft + new Vector3(cellSize, cellSize, 0);
 
+                FoodType foodType = cell.foodType;
                 Color color = cell.state == CellState.SNAKE ? Color.red : Color.black;
-                color = cell.state == CellState.FOOD ? Color.green : color;
-                color = cell.state == CellState.SNAKE_AND_FOOD ? Color.blue : color;
+                bool isFoodInCell = cell.state == CellState.SNAKE_AND_FOOD || cell.state == CellState.FOOD;
+                if (isFoodInCell)
+                {
+                    color = foodType == FoodType.GREEN ? Color.green : color;
+                    color = foodType == FoodType.PINK ? Color.magenta : color;
+                }
 
                 if (cell.state != CellState.EMPTY)
                 {
