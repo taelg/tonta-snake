@@ -35,17 +35,24 @@ public class WallsEffectBehavior : MonoBehaviour
         SetColor(3, defaultColor3);
     }
 
-    private IEnumerator ResetFXAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        ResetToDefaults();
-    }
-
     public void AnimateBoostEffect(float boostDuration)
     {
         SetScrollSpeed(0.75f);
         SetColor(3, boostingColor3);
-        StartCoroutine(ResetFXAfterDelay(boostDuration));
+        StartCoroutine(EndBoostFXAfterDelay(boostDuration));
+    }
+
+    private IEnumerator EndBoostFXAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EndBoostFX();
+    }
+
+    private void EndBoostFX()
+    {
+        SetScrollSpeed(defaultScrollSpeed);
+        SetColor(3, default);
+
     }
 
     public void StartPinkFoodEffect()
