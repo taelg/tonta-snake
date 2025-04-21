@@ -51,7 +51,7 @@ public class WallsEffectBehavior : MonoBehaviour
     private void EndBoostFX()
     {
         SetScrollSpeed(defaultScrollSpeed);
-        SetColor(3, default);
+        SetColor(3, defaultColor3);
 
     }
 
