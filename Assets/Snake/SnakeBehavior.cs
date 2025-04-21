@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -28,7 +28,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private WallsEffectBehavior wallFX;
 
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
-    private List<SpriteRenderer> snakeBodyPartsSprites = new List<SpriteRenderer>();
+    private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
     private Transform currentTail;
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
@@ -57,7 +57,7 @@ public class SnakeBehavior : MonoBehaviour
 
             OnTailLeaveCell();
             MoveBodies();
-            MoveHead();
+            TryMoveHead();
             RecolorSnakeParts();
         }
     }
@@ -99,28 +99,87 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
-    private void MoveHead()
+    private Vector2Int GetNextMoveTargetPos()
     {
         Vector2 moveDir = facingDir.ToVector2();
         Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
         Vector2Int targetPos = new Vector2Int(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
         targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
+        return targetPos;
+    }
+
+    private void TryMoveHead()
+    {
+        Vector2Int targetPos = GetNextMoveTargetPos();
         bool isTargetCellFree = gameGrid.IsGridCellFree(targetPos);
+        bool isHittingPinkBodyPart = isTargetCellFree == false && gameGrid.GetFoodType(targetPos) == FoodType.PINK;
 
         if (isTargetCellFree)
         {
-            lastMovedDir = facingDir;
-            bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
-            FoodType foodType = gameGrid.GetFoodType(targetPos);
-            CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
-
-            this.transform.position = (Vector2)targetPos;
-            gameGrid.SetCellState(targetPosNewState, targetPos, foodType);
+            MoveHead(targetPos);
+        }
+        else if (isHittingPinkBodyPart)
+        {
+            MoveHead(targetPos);
+            SplitSnakeOnSelfCollision(targetPos);
         }
         else
         {
             Die();
         }
+    }
+
+    private void MoveHead(Vector2Int targetPos)
+    {
+        lastMovedDir = facingDir;
+        bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
+        FoodType foodType = gameGrid.GetFoodType(targetPos);
+        CellState targetPosNewState = isThereFoodInTargetPos ? CellState.SNAKE_AND_FOOD : CellState.SNAKE;
+
+        this.transform.position = (Vector2)targetPos;
+        gameGrid.SetCellState(targetPosNewState, targetPos, foodType);
+    }
+
+    private void SplitSnakeOnSelfCollision(Vector2Int targetPos)
+    {
+        MoveHead(targetPos);
+        int splitOnIndex = FindBodyPartIndexOnPos(targetPos);
+        int removalSize = bodyParts.Count - splitOnIndex;
+
+        currentTail = bodyParts[splitOnIndex - 1].transform;
+
+        for (int i = splitOnIndex; i < bodyParts.Count; i++)
+        {
+            Vector2 clearPos = bodyParts[i].transform.position;
+            gameGrid.ClearCellData(new Vector2Int((int)clearPos.x, (int)clearPos.y));
+            Destroy(bodyParts[i].transform.gameObject);
+            Destroy(bodyPartsSprites[i].transform.gameObject);
+        }
+        gameGrid.SetCellState(CellState.SNAKE, targetPos);
+
+        bodyParts.RemoveRange(splitOnIndex, removalSize);
+        bodyPartsSprites.RemoveRange(splitOnIndex, removalSize);
+    }
+
+    private void ClearBoardCellsOnSplitSnake(int splitOnIndex, int snakeSize)
+    {
+    }
+
+    private int FindBodyPartIndexOnPos(Vector2Int pos)
+    {
+        int indexFound = 0;
+        for (int i = 0; i < bodyParts.Count; i++)
+        {
+            BodyPartBehavior body = bodyParts[i];
+            Vector2Int bodyPos = new Vector2Int((int)body.transform.position.x, (int)body.transform.position.y);
+            if (bodyPos == pos)
+            {
+                indexFound = i;
+                break;
+            }
+        }
+
+        return indexFound;
     }
 
     private void Die()
@@ -214,7 +273,7 @@ public class SnakeBehavior : MonoBehaviour
     {
         GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
         bodyParts.Add(snakeBody.GetComponent<BodyPartBehavior>());
-        snakeBodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
+        bodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
         snakeBody.transform.position = tailPos;
         currentTail = snakeBody.transform;
     }
@@ -228,7 +287,7 @@ public class SnakeBehavior : MonoBehaviour
         currentScore.text = "0";
         this.transform.position = Vector2.zero;
         bodyParts.Clear();
-        snakeBodyPartsSprites.Clear();
+        bodyPartsSprites.Clear();
         facingDir = Direction.RIGHT;
         lastMovedDir = Direction.NONE;
         isBoosting = false;

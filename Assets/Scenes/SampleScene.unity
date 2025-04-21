@@ -9373,9 +9373,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1724764227}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 603055998}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostSpeedMultiplier
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: snakeBodiesContainer
       value: 

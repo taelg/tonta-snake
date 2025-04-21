@@ -136,9 +136,11 @@ public class GameGridBehavior : MonoBehaviour
         return objectInTheCell == CellState.EMPTY || objectInTheCell == CellState.FOOD;
     }
 
-    public void ClearCellState(Vector2Int pos)
+    public void ClearCellData(Vector2Int pos)
     {
-        grid[pos.x, pos.y].state = CellState.EMPTY;
+        var cell = grid[pos.x, pos.y];
+        cell.state = CellState.EMPTY;
+        cell.foodType = FoodType.NONE;
     }
 
     public void SetCellState(CellState cellObject, Vector2 pos, FoodType foodType = FoodType.NONE)
@@ -166,6 +168,7 @@ public class GameGridBehavior : MonoBehaviour
             {
                 var cell = grid[x, y];
                 cell.state = CellState.EMPTY;
+                cell.foodType = FoodType.NONE;
             }
         }
     }
