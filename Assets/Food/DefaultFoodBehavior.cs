@@ -23,7 +23,7 @@ public class DefaultFoodBehavior : MonoBehaviour
 
     public virtual void OnEatFood() { } //Each food type implements this differently.
 
-    protected void RestartFood()
+    public void RestartFood()
     {
         RepositionRandonly();
         StopAllCoroutines();

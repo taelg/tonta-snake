@@ -32,7 +32,7 @@ public class GameGridBehavior : MonoBehaviour
 
     private void Update()
     {
-        //DrawDebugBoxes();
+        DrawDebugBoxes();
     }
 
     private void DrawDebugBoxes()

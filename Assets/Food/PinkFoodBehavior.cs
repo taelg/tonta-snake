@@ -20,7 +20,7 @@ public class PinkFoodBehavior : DefaultFoodBehavior
         DeactiveSpecialFood();
     }
 
-    private void DeactiveSpecialFood()
+    public void DeactiveSpecialFood()
     {
         boxCollider.enabled = false;
         spriteRenderer.enabled = false;

@@ -27,7 +27,7 @@ public class WallsEffectBehavior : MonoBehaviour
         ResetToDefaults();
     }
 
-    private void ResetToDefaults()
+    public void ResetToDefaults()
     {
         SetScrollSpeed(defaultScrollSpeed);
         SetColor(1, defaultColor1);

@@ -3442,6 +3442,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310227825}
   m_CullTransparentMesh: 1
+--- !u!114 &354879537 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
+  m_PrefabInstance: {fileID: 6535050810477415048}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b701d64479ed14890306df84c8e792, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &479963476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,7 +3922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c39b29b8ed4076f4ca8b0edf528ab99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 30
+  initialSize: 50
   prefab: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
 --- !u!4 &579081747
 Transform:
@@ -3984,6 +3995,9 @@ MonoBehaviour:
   snake: {fileID: 1962284355}
   grid: {fileID: 861465751}
   saveScorePanel: {fileID: 1108231526}
+  wallFX: {fileID: 999867147}
+  greenFood: {fileID: 354879537}
+  pinkFood: {fileID: 618509358}
 --- !u!114 &618509358 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}

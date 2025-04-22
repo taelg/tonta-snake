@@ -10,6 +10,9 @@ public class GameOverPanelBehavior : MonoBehaviour
     [SerializeField] private SnakeBehavior snake;
     [SerializeField] private GameGridBehavior grid;
     [SerializeField] private SaveScoreBehavior saveScorePanel;
+    [SerializeField] private WallsEffectBehavior wallFX;
+    [SerializeField] private GreenFoodBehavior greenFood;
+    [SerializeField] private PinkFoodBehavior pinkFood;
 
     private void Start()
     {
@@ -28,6 +31,9 @@ public class GameOverPanelBehavior : MonoBehaviour
     {
         grid.ClearGrid();
         snake.ResetSnake();
+        wallFX.ResetToDefaults();
+        greenFood.RestartFood();
+        pinkFood.DeactiveSpecialFood();
         this.gameObject.SetActive(false);
     }
 
