@@ -27,6 +27,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameOverPanelBehavior gameOverPanel;
     [SerializeField] private TMP_Text currentScore;
     [SerializeField] private WallsEffectBehavior wallFX;
+    [SerializeField] private SimplePoolBehavior snakePartsPool;
 
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
@@ -167,8 +168,7 @@ public class SnakeBehavior : MonoBehaviour
         {
             Vector2 clearPos = bodyParts[i].transform.position;
             gameGrid.ClearCellData(new Vector2((int)clearPos.x, (int)clearPos.y));
-            Destroy(bodyParts[i].transform.gameObject);
-            Destroy(bodyPartsSprites[i].transform.gameObject);
+            bodyParts[i].gameObject.SetActive(false);
         }
     }
 
@@ -285,7 +285,8 @@ public class SnakeBehavior : MonoBehaviour
 
     private void IncreaseSnakeBody(Vector2 tailPos)
     {
-        GameObject snakeBody = Instantiate(snakeBodyPrefab, snakeBodiesContainer.transform);
+        GameObject snakeBody = snakePartsPool.GetNext();
+        snakeBody.transform.parent = snakeBodiesContainer.transform;
         bodyParts.Add(snakeBody.GetComponent<BodyPartBehavior>());
         bodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
         snakeBody.transform.position = tailPos;
@@ -294,8 +295,8 @@ public class SnakeBehavior : MonoBehaviour
 
     public void ResetSnake()
     {
-        foreach (Transform child in snakeBodiesContainer.transform)
-            Destroy(child.gameObject);
+        foreach (BodyPartBehavior part in bodyParts)
+            part.gameObject.SetActive(false);
 
         currentTail = this.transform;
         currentScore.text = "0";
