@@ -13,9 +13,9 @@ public class GridCell
         posY = y;
     }
 
-    public Vector2Int GetPosition()
+    public Vector2 GetPosition()
     {
-        return new Vector2Int(posX, posY);
+        return new Vector2(posX, posY);
     }
 
 }

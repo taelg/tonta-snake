@@ -104,18 +104,18 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
-    private Vector2Int GetNextMoveTargetPos()
+    private Vector2 GetNextMoveTargetPos()
     {
         Vector2 moveDir = facingDir.ToVector2();
-        Vector2Int currentPos = new Vector2Int((int)this.transform.position.x, (int)this.transform.position.y);
-        Vector2Int targetPos = new Vector2Int(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
+        Vector2 currentPos = new Vector2((int)this.transform.position.x, (int)this.transform.position.y);
+        Vector2 targetPos = new Vector2(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
         targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
         return targetPos;
     }
 
     private void TryMoveHead()
     {
-        Vector2Int targetPos = GetNextMoveTargetPos();
+        Vector2 targetPos = GetNextMoveTargetPos();
         bool isTargetCellFree = gameGrid.IsGridCellFree(targetPos);
         bool isHittingPinkBodyPart = isTargetCellFree == false && gameGrid.GetFoodType(targetPos) == FoodType.PINK;
 
@@ -134,7 +134,7 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
-    private void MoveHead(Vector2Int targetPos)
+    private void MoveHead(Vector2 targetPos)
     {
         lastMovedDir = facingDir;
         bool isThereFoodInTargetPos = gameGrid.GetCellState(targetPos) == CellState.FOOD;
@@ -145,7 +145,7 @@ public class SnakeBehavior : MonoBehaviour
         gameGrid.SetCellState(targetPosNewState, targetPos, foodType);
     }
 
-    private void SplitSnakeOnSelfCollision(Vector2Int targetPos)
+    private void SplitSnakeOnSelfCollision(Vector2 targetPos)
     {
         MoveHead(targetPos);
         int splitOnIndex = FindBodyPartIndexOnPos(targetPos);
@@ -166,19 +166,19 @@ public class SnakeBehavior : MonoBehaviour
         for (int i = splitOnIndex; i < bodyParts.Count; i++)
         {
             Vector2 clearPos = bodyParts[i].transform.position;
-            gameGrid.ClearCellData(new Vector2Int((int)clearPos.x, (int)clearPos.y));
+            gameGrid.ClearCellData(new Vector2((int)clearPos.x, (int)clearPos.y));
             Destroy(bodyParts[i].transform.gameObject);
             Destroy(bodyPartsSprites[i].transform.gameObject);
         }
     }
 
-    private int FindBodyPartIndexOnPos(Vector2Int pos)
+    private int FindBodyPartIndexOnPos(Vector2 pos)
     {
         int indexFound = 0;
         for (int i = 0; i < bodyParts.Count; i++)
         {
             BodyPartBehavior body = bodyParts[i];
-            Vector2Int bodyPos = new Vector2Int((int)body.transform.position.x, (int)body.transform.position.y);
+            Vector2 bodyPos = new Vector2((int)body.transform.position.x, (int)body.transform.position.y);
             if (bodyPos == pos)
             {
                 indexFound = i;
@@ -261,7 +261,7 @@ public class SnakeBehavior : MonoBehaviour
         DefaultFoodBehavior food = collision.gameObject.GetComponent<DefaultFoodBehavior>();
         if (food)
         {
-            Vector2Int currentPos = new Vector2Int(
+            Vector2 currentPos = new Vector2(
                 (int)this.transform.position.x,
                 (int)this.transform.position.y);
 

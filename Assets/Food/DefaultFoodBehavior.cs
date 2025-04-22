@@ -33,13 +33,13 @@ public class DefaultFoodBehavior : MonoBehaviour
     protected virtual void OnLifetimeEnd()
     {
         Vector2 foodPos = this.transform.position;
-        gameGrid.ClearCellData(new Vector2Int((int)foodPos.x, (int)foodPos.y));
+        gameGrid.ClearCellData(new Vector2(foodPos.x, foodPos.y));
         RestartFood();
     }
 
     private void RepositionRandonly()
     {
-        Vector2Int newPos = gameGrid.GetRandomEmptyCell();
+        Vector2 newPos = gameGrid.GetRandomEmptyCell();
         gameGrid.SetCellState(CellState.FOOD, newPos, foodType);
         this.transform.position = new Vector2(newPos.x, newPos.y);
     }
