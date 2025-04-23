@@ -28,7 +28,10 @@ public class DefaultFoodBehavior : MonoBehaviour
         RepositionRandonly();
         StopAllCoroutines();
         StartCoroutine(HandleLifeTime());
+        OnFoodRestart();
     }
+
+    public virtual void OnFoodRestart() { } //Each food type implements this differently.
 
     protected virtual void OnLifetimeEnd()
     {

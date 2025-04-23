@@ -299,6 +299,7 @@ public class SnakeBehavior : MonoBehaviour
             part.gameObject.SetActive(false);
 
         currentTail = this.transform;
+        foodAteCount = 0;
         currentScore.text = "0";
         this.transform.position = Vector2.zero;
         bodyParts.Clear();

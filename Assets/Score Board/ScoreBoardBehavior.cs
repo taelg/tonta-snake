@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class ScoreBoardBehavior : MonoBehaviour
     private const string SCORE_PREFS_KEY = "ScoreList";
     [SerializeField] private GameObject scoreContainer;
     [SerializeField] private GameObject scoreEntryPrefab;
+    [SerializeField] private LootLockerManager lootLocker;
     private List<ScoreEntry> scoreList = new List<ScoreEntry>();
 
     /// <summary>
@@ -19,6 +21,7 @@ public class ScoreBoardBehavior : MonoBehaviour
         if (CanAddScore(newEntry))
         {
             InsertScore(newEntry);
+            lootLocker.SaveScoreToLootLocker(name, score);
             return true;
         }
 
@@ -76,36 +79,19 @@ public class ScoreBoardBehavior : MonoBehaviour
 
     private void Start()
     {
-        scoreList = LoadScores();
-        LoadScoreListIntoUI();
+        StartCoroutine(LoadScoresFromLootLOcker());
     }
 
-    private void OnDestroy()
+    private IEnumerator LoadScoresFromLootLOcker()
     {
-        SaveScores();
+        yield return new WaitUntil(() => lootLocker.IsSessionStarted());
+        lootLocker.LoadScoresFromLootLocker(LoadScoreListIntoUICallback);
     }
 
-    private List<ScoreEntry> LoadScores()
-    {
-        if (!PlayerPrefs.HasKey(SCORE_PREFS_KEY)) return new List<ScoreEntry>();
-
-        string json = PlayerPrefs.GetString(SCORE_PREFS_KEY);
-        ScoreWrapper wrapper = JsonUtility.FromJson<ScoreWrapper>(json);
-        return wrapper.scoreList ?? new List<ScoreEntry>();
-    }
-
-    private void LoadScoreListIntoUI()
+    private void LoadScoreListIntoUICallback(List<ScoreEntry> scoreList)
     {
         foreach (ScoreEntry entry in scoreList)
             AddScoreToUI(entry);
-    }
-
-    private void SaveScores()
-    {
-        ScoreWrapper wrapper = new ScoreWrapper(this.scoreList);
-        string json = JsonUtility.ToJson(wrapper);
-        PlayerPrefs.SetString(SCORE_PREFS_KEY, json);
-        PlayerPrefs.Save();
     }
 
 }
