@@ -32,7 +32,7 @@ public class GameOverPanelBehavior : MonoBehaviour
         grid.ClearGrid();
         snake.ResetSnake();
         wallFX.ResetToDefaults();
-        greenFood.RestartFood();
+        greenFood.ResetFood();
         pinkFood.DeactiveSpecialFood();
         this.gameObject.SetActive(false);
     }

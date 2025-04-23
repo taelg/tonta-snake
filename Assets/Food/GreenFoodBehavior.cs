@@ -16,9 +16,9 @@ public class GreenFoodBehavior : DefaultFoodBehavior
         }
     }
 
-    public override void OnFoodRestart()
+    public override void OnResetFood()
     {
-        base.OnFoodRestart();
+        base.OnResetFood();
         ateCounter = 0;
     }
 
