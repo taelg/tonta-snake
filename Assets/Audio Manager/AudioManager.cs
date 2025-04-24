@@ -68,7 +68,13 @@ public class AudioManager : MonoBehaviour
         else
             Debug.LogError($"AudioManager: Invalid AudioType {audioType}");
 
-        //Here I'll have to update all audioSources that are currently playing    
+        UpdateAllAudioSourcesVolume(audioType, volume);
+    }
+
+    private void UpdateAllAudioSourcesVolume(AudioType audioType, float volume)
+    {
+        foreach (AudioSource source in GetPoolByType(audioType).GetAllObjects())
+            source.volume = volume;
     }
 
     private IEnumerator DisableAudioSourceAfterPlayback(AudioSource audioSource, float clipLength)
