@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 89606694400915519}
   - component: {fileID: 5225337497547733470}
   m_Layer: 0
-  m_Name: snake
+  m_Name: Snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,13 +134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bf55d18b24e244a98d126feea3f41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveIntervalSecs: 0.1
-  positionHistorySize: 10
-  defaultSnakeColor: {r: 0.2, g: 0.6, b: 0, a: 1}
-  snakeAndFoodColor: {r: 0.12, g: 0.37, b: 0, a: 1}
+  moveIntervalSecs: 0.125
   boostSpeedMultiplier: 4
   boostDecayRate: 1.75
-  boostDuration: 3
+  boostDuration: 2
   gameGrid: {fileID: 0}
   headSprite: {fileID: 2453819933810068086}
   snakeHead: {fileID: 3447296939884496136}
@@ -149,6 +146,8 @@ MonoBehaviour:
   gameOverPanel: {fileID: 0}
   currentScore: {fileID: 0}
   wallFX: {fileID: 0}
+  musicFX: {fileID: 0}
+  snakePartsPool: {fileID: 0}
 --- !u!50 &89606694400915519
 Rigidbody2D:
   serializedVersion: 5

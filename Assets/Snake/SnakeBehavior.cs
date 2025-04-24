@@ -1,15 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using TMPro;
-using UnityEditor;
 using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
     [Header("General Config")]
-    [SerializeField] private float moveIntervalSecs = 0.35f;
+    [SerializeField] private float moveIntervalSecs = 0.125f;
 
     [Space]
     [Header("Boost Config")]
@@ -27,6 +24,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameOverPanelBehavior gameOverPanel;
     [SerializeField] private TMP_Text currentScore;
     [SerializeField] private WallsEffectBehavior wallFX;
+    [SerializeField] private MusicEffectsBehavior musicFX;
     [SerializeField] private SimplePoolBehavior snakePartsPool;
 
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
@@ -228,6 +226,7 @@ public class SnakeBehavior : MonoBehaviour
     {
         isBoosting = true;
         wallFX.AnimateBoostEffect(boostDuration);
+        musicFX.AnimateBoostEffect(boostDuration);
         float originalSpeed = moveIntervalSecs;
         float boostedSpeed = originalSpeed / boostSpeedMultiplier;
         moveIntervalSecs = boostedSpeed;
@@ -274,6 +273,7 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnSnakeEatFood(FoodType foodType)
     {
+        AudioManager.Instance.PlayOneShot(AudioId.SNAKE_EAT, AudioType.EFFECT);
         if (foodType == FoodType.PINK)
             wallFX.StartPinkFoodEffect();
     }
