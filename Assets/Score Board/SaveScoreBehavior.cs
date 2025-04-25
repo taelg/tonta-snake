@@ -49,7 +49,7 @@ public class SaveScoreBehavior : MonoBehaviour
         }
 
         errorLabel.gameObject.SetActive(false);
-        bool isScoreAdded = scoreBoard.AddNewScore(inputField.text, score);
+        bool isScoreAdded = scoreBoard.TryAddNewScore(inputField.text, score);
 
         if (isScoreAdded)
         {

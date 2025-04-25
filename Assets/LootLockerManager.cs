@@ -53,18 +53,8 @@ public class LootLockerManager : MonoBehaviour
         });
     }
 
-    public void SaveScoreToLootLocker(string playerName, int score)
+    public void SaveScoreToLootLocker(string playerName, int score, Action<bool> callback)
     {
-        LootLockerSDKManager.SubmitScore(playerName, score, leaderboardId, (response) =>
-        {
-            if (response.success)
-            {
-                Debug.Log("Pontuação salva com sucesso!");
-            }
-            else
-            {
-                Debug.LogError("Erro ao salvar pontuação: " + response.text);
-            }
-        });
+        LootLockerSDKManager.SubmitScore(playerName, score, leaderboardId, (response) => { callback.Invoke(response.success); });
     }
 }
