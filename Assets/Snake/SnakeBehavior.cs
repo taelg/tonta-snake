@@ -206,20 +206,26 @@ public class SnakeBehavior : MonoBehaviour
 
     private void HandMovementInput()
     {
-        if (Input.GetKeyDown(KeyCode.W) && (lastMovedDir != Direction.DOWN))
+        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        bool inputBoost = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0");
+
+        if (vertical > 0 && (lastMovedDir != Direction.DOWN))
             facingDir = Direction.UP;
 
-        if (Input.GetKeyDown(KeyCode.A) && (lastMovedDir != Direction.RIGHT))
+        if (horizontal < 0 && (lastMovedDir != Direction.RIGHT))
             facingDir = Direction.LEFT;
 
-        if (Input.GetKeyDown(KeyCode.S) && (lastMovedDir != Direction.UP))
+        if (vertical < 0 && (lastMovedDir != Direction.UP))
             facingDir = Direction.DOWN;
 
-        if (Input.GetKeyDown(KeyCode.D) && (lastMovedDir != Direction.LEFT))
+        if (horizontal > 0 && (lastMovedDir != Direction.LEFT))
             facingDir = Direction.RIGHT;
 
-        if (Input.GetKeyDown(KeyCode.Space) && !isBoosting)
+        if (inputBoost && !isBoosting)
+        {
             StartCoroutine(ExecuteSpeedBoost());
+        }
     }
 
     private IEnumerator ExecuteSpeedBoost()
