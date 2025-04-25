@@ -34,6 +34,7 @@ public class AudioManager : MonoBehaviour
     {
         musicVolume = 0.1f;
         effectsVolume = 0.30f;
+        LoadSettingFromPlayerPrefs();
         PlayOnLoop(AudioId.GAME_MUSIC, AudioType.MUSIC);
     }
 
@@ -106,6 +107,24 @@ public class AudioManager : MonoBehaviour
         return null;
     }
 
+    public float GetMusicVolume()
+    {
+        return musicVolume;
+    }
+
+    public float GetEffectsVolume()
+    {
+        return effectsVolume;
+    }
+
+    private void LoadSettingFromPlayerPrefs()
+    {
+        if (!PlayerPrefs.HasKey("MusicVolume") || !PlayerPrefs.HasKey("EffectsVolume"))
+            return;
+
+        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+        effectsVolume = PlayerPrefs.GetFloat("EffectsVolume");
+    }
 
 
 }
