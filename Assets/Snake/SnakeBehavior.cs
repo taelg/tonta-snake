@@ -155,6 +155,8 @@ public class SnakeBehavior : MonoBehaviour
         ClearBoardCellsOnSplitSnake(splitOnIndex);
         gameGrid.SetCellState(CellState.SNAKE, targetPos);
 
+        AudioManager.Instance.PlayOneShot(AudioId.SNAKE_SPLIT, AudioType.EFFECT);
+        AnimateDestoyedBodyParts(splitOnIndex);
         bodyParts.RemoveRange(splitOnIndex, removalSize);
         bodyPartsSprites.RemoveRange(splitOnIndex, removalSize);
         wallFX.EndPinkFoodEffect();
@@ -166,8 +168,13 @@ public class SnakeBehavior : MonoBehaviour
         {
             Vector2 clearPos = bodyParts[i].transform.position;
             gameGrid.ClearCellData(new Vector2((int)clearPos.x, (int)clearPos.y));
-            bodyParts[i].gameObject.SetActive(false);
         }
+    }
+
+    private void AnimateDestoyedBodyParts(int splitOnIndex)
+    {
+        for (int i = splitOnIndex; i < bodyParts.Count; i++)
+            bodyParts[i].AnimateDestroyPink();
     }
 
     private int FindBodyPartIndexOnPos(Vector2 pos)
