@@ -33,7 +33,7 @@ public class LootLockerManager : MonoBehaviour
 
     public void LoadScoresFromLootLocker(Action<List<ScoreEntry>> callback)
     {
-        LootLockerSDKManager.GetScoreList(leaderboardId, 10, (response) =>
+        LootLockerSDKManager.GetScoreList(leaderboardId, 20, (response) =>
         {
             List<ScoreEntry> scoreList = new List<ScoreEntry>();
 
