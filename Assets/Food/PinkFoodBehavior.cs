@@ -17,6 +17,7 @@ public class PinkFoodBehavior : DefaultFoodBehavior
 
     public override void OnEatFood()
     {
+        base.OnEatFood();
         DeactiveSpecialFood();
     }
 

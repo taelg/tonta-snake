@@ -5,7 +5,7 @@ using UnityEngine;
 public class GenericComponentPoolBehavior<T> : MonoBehaviour where T : Component
 {
     [Header("Internal")]
-    [SerializeField] private int initialSize = 30;
+    [SerializeField] protected int initialSize = 30;
     [SerializeField] private T prefab;
 
     private readonly List<T> allObjects = new List<T>();
@@ -16,7 +16,7 @@ public class GenericComponentPoolBehavior<T> : MonoBehaviour where T : Component
         LoadPoolObjects();
     }
 
-    private void LoadPoolObjects()
+    protected void LoadPoolObjects()
     {
         for (int i = 0; i < initialSize; i++)
             AddObjectToPool();

@@ -22,10 +22,10 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private GameObject snakeBodiesContainer;
     [SerializeField] private GameObject snakeBodyPrefab;
     [SerializeField] private GameOverPanelBehavior gameOverPanel;
-    [SerializeField] private TMP_Text currentScore;
+    [SerializeField] private ScoreLabelBehavior scoreLabel;
     [SerializeField] private WallsEffectBehavior wallFX;
     [SerializeField] private MusicEffectsBehavior musicFX;
-    [SerializeField] private SimplePoolBehavior snakePartsPool;
+    [SerializeField] private GameObjectPoolBehavior snakePartsPool;
 
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
@@ -39,7 +39,6 @@ public class SnakeBehavior : MonoBehaviour
     private void Start()
     {
         currentTail = this.transform;
-        currentScore.text = "0";
         StartCoroutine(MovingConstantly());
     }
 
@@ -293,12 +292,13 @@ public class SnakeBehavior : MonoBehaviour
 
     private void IncreaseFoodAteScore()
     {
-        currentScore.text = $"{++foodAteCount}";
+        foodAteCount++;
+        scoreLabel.UpdateScoreDelayed(foodAteCount);
     }
 
     private void IncreaseSnakeBody(Vector2 tailPos)
     {
-        GameObject snakeBody = snakePartsPool.GetNext();
+        GameObject snakeBody = snakePartsPool.GetPooledObject();
         snakeBody.transform.parent = snakeBodiesContainer.transform;
         bodyParts.Add(snakeBody.GetComponent<BodyPartBehavior>());
         bodyPartsSprites.Add(snakeBody.GetComponent<SpriteRenderer>());
@@ -313,7 +313,7 @@ public class SnakeBehavior : MonoBehaviour
 
         currentTail = this.transform;
         foodAteCount = 0;
-        currentScore.text = "0";
+        scoreLabel.ResetScore();
         this.transform.position = Vector2.zero;
         bodyParts.Clear();
         bodyPartsSprites.Clear();

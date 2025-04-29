@@ -8,6 +8,7 @@ public class GreenFoodBehavior : DefaultFoodBehavior
 
     public override void OnEatFood()
     {
+        base.OnEatFood();
         RestartFood();
         ateCounter++;
         if (ateCounter % 10 == 0)

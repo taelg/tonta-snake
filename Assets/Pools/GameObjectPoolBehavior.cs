@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimplePoolBehavior : MonoBehaviour
+public class GameObjectPoolBehavior : MonoBehaviour
 {
     [Header("Internal")]
     [SerializeField] private int initialSize = 30;
@@ -21,7 +21,7 @@ public class SimplePoolBehavior : MonoBehaviour
             AddObjectToPool();
     }
 
-    public GameObject GetNext()
+    public GameObject GetPooledObject()
     {
         bool hasObjectAvailable = availableObjects.Count > 0;
         GameObject pooledObject = hasObjectAvailable ? availableObjects[0] : AddObjectToPool();
@@ -64,7 +64,7 @@ public class SimplePoolBehavior : MonoBehaviour
     // Aux class to return objects to pool.
     private class ReturnToPool : MonoBehaviour
     {
-        [HideInInspector] public SimplePoolBehavior pool;
+        [HideInInspector] public GameObjectPoolBehavior pool;
 
         void OnDisable()
         {

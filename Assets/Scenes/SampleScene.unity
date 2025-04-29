@@ -4619,6 +4619,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 667855704}
   m_CullTransparentMesh: 1
+--- !u!1 &717262736
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 717262738}
+  - component: {fileID: 717262737}
+  m_Layer: 0
+  m_Name: LootLockerHTTPClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &717262737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717262736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6b4735df3c936946a538c8a2acc6e43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HostingGameObject: {fileID: 717262736}
+--- !u!4 &717262738
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717262736}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &723438975
 GameObject:
   m_ObjectHideFlags: 0
@@ -10231,6 +10276,7 @@ GameObject:
   - component: {fileID: 1724764229}
   - component: {fileID: 1724764228}
   - component: {fileID: 1724764227}
+  - component: {fileID: 1724764230}
   m_Layer: 5
   m_Name: 'Text: Current Score'
   m_TagString: Untagged
@@ -10288,9 +10334,9 @@ MonoBehaviour:
   m_fontSize: 42
   m_fontSizeBase: 42
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 35
+  m_fontSizeMax: 42
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -10353,9 +10399,84 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -63.75}
-  m_SizeDelta: {x: 500, y: 127.5}
+  m_AnchoredPosition: {x: 0, y: -65}
+  m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1724764230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724764226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e5d68ed5077ac4cbe768e629d4290c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreUpdateDelay: 0.5
+  scoreLabel: {fileID: 1724764227}
+--- !u!1 &1731515871
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1731515872}
+  - component: {fileID: 1731515873}
+  - component: {fileID: 1731515874}
+  m_Layer: 0
+  m_Name: PointVFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1731515872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731515871}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1731515873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731515871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b20ceb472da6f498beb102a74ceed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointsLabel: {fileID: 1724764229}
+  pointFXPool: {fileID: 1731515874}
+--- !u!114 &1731515874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731515871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fec39d1b7efa5c4d9c5529bf6922eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSize: 5
+  prefab: {fileID: 5328111580455198826, guid: f43efbb1dc2a0e140ae21cda49df0dbb, type: 3}
 --- !u!1 &1733739900
 GameObject:
   m_ObjectHideFlags: 0
@@ -11398,51 +11519,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicVolumeSlider: {fileID: 97687813}
   effectsVolumeSlider: {fileID: 1267264233}
---- !u!1 &2076719943
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2076719945}
-  - component: {fileID: 2076719944}
-  m_Layer: 0
-  m_Name: LootLockerHTTPClient
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2076719944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076719943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6b4735df3c936946a538c8a2acc6e43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HostingGameObject: {fileID: 2076719943}
---- !u!4 &2076719945
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076719943}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2099121910
 GameObject:
   m_ObjectHideFlags: 0
@@ -11538,6 +11614,10 @@ PrefabInstance:
       propertyPath: gameGrid
       value: 
       objectReference: {fileID: 861465751}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: scoreLabel
+      value: 
+      objectReference: {fileID: 1724764230}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: currentScore
       value: 
@@ -11766,6 +11846,7 @@ SceneRoots:
   - {fileID: 1286013358}
   - {fileID: 914152395}
   - {fileID: 999867146}
-  - {fileID: 2076719945}
   - {fileID: 1037375940}
   - {fileID: 50658388}
+  - {fileID: 717262738}
+  - {fileID: 1731515872}

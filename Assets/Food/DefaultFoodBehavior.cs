@@ -21,8 +21,10 @@ public class DefaultFoodBehavior : MonoBehaviour
         RestartFood();
     }
 
-    public virtual void OnEatFood() { } //Each food type implements this differently.
-
+    public virtual void OnEatFood()
+    {
+        PointVFXManager.Instance.AnimatePoint(this.transform.position);
+    }
 
     public void RestartFood()
     {
