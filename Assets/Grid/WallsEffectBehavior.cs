@@ -27,6 +27,11 @@ public class WallsEffectBehavior : MonoBehaviour
         ResetToDefaults();
     }
 
+    void OnDestroy()
+    {
+        ResetToDefaults();
+    }
+
     public void ResetToDefaults()
     {
         SetScrollSpeed(defaultScrollSpeed);

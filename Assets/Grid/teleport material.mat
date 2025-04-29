@@ -77,14 +77,14 @@ Material:
     - _GlowIntensity: 3.5
     - _GradientSpeed: 0.5
     - _NoiseScale: 1
-    - _ScrollSpeed: 0.75
+    - _ScrollSpeed: 0.1
     - _Speed: 1
     - _ZWrite: 0
     - _Zoom: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Color2: {r: 0.21960784, g: 0.27058825, b: 0.41568628, a: 1}
-    - _Color3: {r: 0.5176471, g: 0.42352942, b: 0.17254902, a: 1}
+    - _Color3: {r: 0.18039216, g: 0.23137255, b: 0.37254903, a: 1}
     - _ColorA: {r: 0, g: 1, b: 1, a: 1}
     - _ColorB: {r: 1, g: 0.49019608, b: 0, a: 1}
     - _MainColor: {r: 0.1764706, g: 0.78431374, b: 0.78431374, a: 1}
