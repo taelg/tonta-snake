@@ -45,6 +45,7 @@ public class SnakeBehavior : MonoBehaviour
     private void Update()
     {
         HandMovementInput();
+        HandleBoostInput();
         UpdateSnakeHeadRotation();
     }
 
@@ -214,7 +215,6 @@ public class SnakeBehavior : MonoBehaviour
     {
         float vertical = Input.GetAxisRaw("Vertical");
         float horizontal = Input.GetAxisRaw("Horizontal");
-        bool inputBoost = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0");
 
         if (vertical > 0 && (lastMovedDir != Direction.DOWN))
             facingDir = Direction.UP;
@@ -227,12 +227,40 @@ public class SnakeBehavior : MonoBehaviour
 
         if (horizontal > 0 && (lastMovedDir != Direction.LEFT))
             facingDir = Direction.RIGHT;
+    }
+
+    private void HandleBoostInput()
+    {
+        bool inputBoost = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0");
 
         if (inputBoost && !isBoosting)
         {
             StartCoroutine(ExecuteSpeedBoost());
         }
     }
+
+    public void SetMovementSpeed(int speedId1to5)
+    {
+        switch (speedId1to5)
+        {
+            case 1:
+                moveIntervalSecs = 0.35f;
+                break;
+            case 2:
+                moveIntervalSecs = 0.25f;
+                break;
+            case 3:
+                moveIntervalSecs = 0.175f;
+                break;
+            case 4:
+                moveIntervalSecs = 0.125f;
+                break;
+            case 5:
+                moveIntervalSecs = 0.1f;
+                break;
+        }
+    }
+
 
     private IEnumerator ExecuteSpeedBoost()
     {
