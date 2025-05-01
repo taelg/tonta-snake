@@ -43,7 +43,6 @@ public class SnakeBehavior : MonoBehaviour
     private void Update()
     {
         HandMovementInput();
-        HandleBoostInput();
         UpdateSnakeHeadRotation();
     }
 
