@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
-    [Header("General Config")]
-    [SerializeField] private float moveIntervalSecs = 0.125f;
-
     [Space]
     [Header("Boost Config")]
     [SerializeField] private float boostSpeedMultiplier = 4f;
@@ -27,6 +24,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private MusicEffectsBehavior musicFX;
     [SerializeField] private GameObjectPoolBehavior snakePartsPool;
 
+    private float moveIntervalSecs = 0.175f;
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
     private Transform currentTail;

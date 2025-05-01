@@ -23,23 +23,20 @@ public class VolumeControllerBehavior : MonoBehaviour
     private void OnMusicVolumeChanged(float value)
     {
         AudioManager.Instance.SetAudioTypeVolume(AudioType.MUSIC, value);
+        SaveCurrentSettings();
     }
 
     private void OnEffectsVolumeChanged(float value)
     {
         AudioManager.Instance.SetAudioTypeVolume(AudioType.EFFECT, value);
-    }
-
-    private void OnDestroy()
-    {
         SaveCurrentSettings();
-
     }
 
     private void SaveCurrentSettings()
     {
         PlayerPrefs.SetFloat("MusicVolume", musicVolumeSlider.value);
         PlayerPrefs.SetFloat("EffectsVolume", effectsVolumeSlider.value);
+        PlayerPrefs.Save();
     }
 
     private void LoadSettingFromPlayerPrefs()
