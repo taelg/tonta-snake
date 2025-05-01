@@ -1,6 +1,6 @@
+using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
 
 public class DefaultFoodBehavior : MonoBehaviour
 {
@@ -11,48 +11,37 @@ public class DefaultFoodBehavior : MonoBehaviour
     [SerializeField] private float endingScale = 0.5f;
     [SerializeField] private float startingAlpha = 1f;
     [SerializeField] private float endingAlpha = 0.25f;
-    [SerializeField] private GameGridBehavior gameGrid;
     [SerializeField] private SpriteRenderer sprite;
 
     private float currentLifeTime;
-
-    private void Start()
-    {
-        RestartFood();
-    }
 
     public virtual void OnEatFood()
     {
         PointVFXManager.Instance.AnimatePoint(this.transform.position);
     }
 
-    public void RestartFood()
+    public void RestartFoodLifetime()
     {
-        RepositionRandonly();
         StopAllCoroutines();
         StartCoroutine(HandleLifeTime());
     }
 
-    public void ResetFood()
+    public void RepositionFoodOnGrid(bool clearGridData = false)
     {
-        RestartFood();
-        OnResetFood();
+        if (clearGridData)
+            GameGridBehavior.Instance.ClearCellData(this.transform.position);
+
+        Vector2 newPos = GameGridBehavior.Instance.GetRandomEmptyCell();
+        GameGridBehavior.Instance.SetCellState(CellState.FOOD, newPos, FoodType.GREEN);
+        this.transform.position = new Vector2(newPos.x, newPos.y);
     }
 
-    public virtual void OnResetFood() { } //Each food type implements this differently.
-
-    protected virtual void OnLifetimeEnd()
+    protected virtual void EndLifeTime()
     {
         Vector2 foodPos = this.transform.position;
-        gameGrid.ClearCellData(new Vector2(foodPos.x, foodPos.y));
-        RestartFood();
-    }
-
-    private void RepositionRandonly()
-    {
-        Vector2 newPos = gameGrid.GetRandomEmptyCell();
-        gameGrid.SetCellState(CellState.FOOD, newPos, foodType);
-        this.transform.position = new Vector2(newPos.x, newPos.y);
+        GameGridBehavior.Instance.ClearCellData(foodPos);
+        RestartFoodLifetime();
+        RepositionFoodOnGrid();
     }
 
     private IEnumerator HandleLifeTime()
@@ -83,7 +72,7 @@ public class DefaultFoodBehavior : MonoBehaviour
             yield return null;
         }
 
-        OnLifetimeEnd();
+        EndLifeTime();
     }
 
 

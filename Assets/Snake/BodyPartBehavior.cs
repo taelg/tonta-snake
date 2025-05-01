@@ -5,7 +5,7 @@ public class BodyPartBehavior : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private CellStateColorMap stateColorMap;
-    [SerializeField] private FoodTypeColorMap foodTypeColorMap;
+    [SerializeField] private FoodTypeData foodTypeColorMap;
 
     public void SetColor(Color color)
     {

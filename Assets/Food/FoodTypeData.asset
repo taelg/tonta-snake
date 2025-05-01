@@ -10,12 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e883ee45b75e9a4a935e2137c616ef6, type: 3}
-  m_Name: FoodTypeColorMap
+  m_Name: FoodTypeData
   m_EditorClassIdentifier: 
   foodTypeColors:
   - foodType: 0
     color: {r: 0.12156863, g: 0.36862746, b: 0, a: 1}
+    chance: 1
+    prefab: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
   - foodType: 1
     color: {r: 0.63529414, g: 0.38039216, b: 0.54509807, a: 1}
+    chance: 1
+    prefab: {fileID: 70354726645219132, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
   - foodType: 2
     color: {r: 0.75294125, g: 0.5254902, b: 0.28235295, a: 1}
+    chance: 1
+    prefab: {fileID: 70354726645219132, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}

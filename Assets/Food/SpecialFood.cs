@@ -5,13 +5,9 @@ public class SpecialFood : DefaultFoodBehavior
     [SerializeField] BoxCollider2D boxCollider;
     [SerializeField] SpriteRenderer spriteRenderer;
 
-    private void Start()
+    protected override void EndLifeTime()
     {
-        DeactiveSpecialFood();
-    }
-
-    protected override void OnLifetimeEnd()
-    {
+        GameGridBehavior.Instance.ClearCellData(this.transform.position);
         DeactiveSpecialFood();
     }
 
@@ -23,15 +19,13 @@ public class SpecialFood : DefaultFoodBehavior
 
     public void DeactiveSpecialFood()
     {
-        boxCollider.enabled = false;
-        spriteRenderer.enabled = false;
+        this.gameObject.SetActive(false);
     }
 
     public void ActiveSpecialFood()
     {
-        boxCollider.enabled = true;
-        spriteRenderer.enabled = true;
-        RestartFood();
+        this.gameObject.SetActive(true);
+        RestartFoodLifetime();
     }
 
 

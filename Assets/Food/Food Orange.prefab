@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 70354726645219132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,13 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodType: 2
-  foodLifeTimeSecs: 10
+  foodLifeTimeSecs: 15
   shrinkDurationSecs: 5
   startingScale: 2.5
   endingScale: 0.5
   startingAlpha: 1
   endingAlpha: 0.25
-  gameGrid: {fileID: 0}
   sprite: {fileID: 3468808976466870882}
   boxCollider: {fileID: 1985391999756851363}
   spriteRenderer: {fileID: 3468808976466870882}

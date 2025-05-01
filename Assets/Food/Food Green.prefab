@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7646816509244324775}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,15 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodType: 0
-  foodLifeTimeSecs: 10
+  foodLifeTimeSecs: 15
   shrinkDurationSecs: 5
   startingScale: 2.5
   endingScale: 0.5
   startingAlpha: 1
   endingAlpha: 0.25
-  gameGrid: {fileID: 0}
   sprite: {fileID: 1824322492153991082}
-  pinkFood: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
 --- !u!212 &1824322492153991082
 SpriteRenderer:
   m_ObjectHideFlags: 0
