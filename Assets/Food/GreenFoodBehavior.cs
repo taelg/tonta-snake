@@ -1,26 +1,26 @@
-using System.Collections;
 using UnityEngine;
 
 public class GreenFoodBehavior : DefaultFoodBehavior
 {
     [SerializeField] private PinkFoodBehavior pinkFood;
-    private int ateCounter = 0;
+    [SerializeField] private float pinkFoodChance = 0.05f;
+    [SerializeField] private OrangeFoodBehavior OrangeFood;
+    [SerializeField] private float orangeFoodChance = 0.2f;
 
     public override void OnEatFood()
     {
         base.OnEatFood();
+        bool spawnPink = Random.value <= pinkFoodChance;
+        bool spawnOrange = Random.value <= orangeFoodChance;
+
+        if (spawnPink) pinkFood.ActiveSpecialFood();
+        if (spawnOrange) OrangeFood.ActiveSpecialFood();
         RestartFood();
-        ateCounter++;
-        if (ateCounter % 10 == 0)
-        {
-            pinkFood.ActiveSpecialFood();
-        }
     }
 
     public override void OnResetFood()
     {
         base.OnResetFood();
-        ateCounter = 0;
     }
 
 }

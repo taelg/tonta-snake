@@ -9,6 +9,12 @@ public class OpenClosePanelBehavior : MonoBehaviour
     private void Awake()
     {
         InitializeButtonsBehavior();
+        panel.SetActive(true);
+    }
+
+    private void Start()
+    {
+        panel.SetActive(false);
     }
 
     private void InitializeButtonsBehavior()

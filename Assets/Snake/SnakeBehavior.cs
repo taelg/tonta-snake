@@ -38,6 +38,13 @@ public class SnakeBehavior : MonoBehaviour
     {
         currentTail = this.transform;
         StartCoroutine(MovingConstantly());
+        LoadSpeedFromPlayerPrefs();
+    }
+
+    private void LoadSpeedFromPlayerPrefs()
+    {
+        if (!PlayerPrefs.HasKey("SnakeSpeed")) return;
+        SetMovementSpeed(PlayerPrefs.GetInt("SnakeSpeed"));
     }
 
     private void Update()

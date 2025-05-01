@@ -11677,6 +11677,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1303340754}
   m_CullTransparentMesh: 1
+--- !u!1001 &1309540786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 70354726645219132, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_Name
+      value: Orange Food
+      objectReference: {fileID: 0}
+    - target: {fileID: 228945037376863434, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: gameGrid
+      value: 
+      objectReference: {fileID: 861465751}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6182533151927434609, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+--- !u!114 &1309540787 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 228945037376863434, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+  m_PrefabInstance: {fileID: 1309540786}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 198bc49278264704a9cb0401777a4e70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1315357440
 GameObject:
   m_ObjectHideFlags: 0
@@ -14848,11 +14920,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 6182533151927434609, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14956,6 +15028,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 618509358}
     - target: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
+      propertyPath: OrangeFood
+      value: 
+      objectReference: {fileID: 1309540787}
+    - target: {fileID: 1840255028631724022, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
       propertyPath: specialFood
       value: 
       objectReference: {fileID: 618509358}
@@ -14984,6 +15060,7 @@ SceneRoots:
   - {fileID: 579081747}
   - {fileID: 6535050810477415048}
   - {fileID: 3050870376370461263}
+  - {fileID: 1309540786}
   - {fileID: 861465752}
   - {fileID: 1286013358}
   - {fileID: 914152395}

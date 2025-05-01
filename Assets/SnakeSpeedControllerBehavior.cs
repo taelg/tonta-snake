@@ -28,7 +28,7 @@ public class SnakeSpeedControllerBehavior : MonoBehaviour
     }
     private void SaveCurrentSettings()
     {
-        PlayerPrefs.SetFloat("SnakeSpeed", snakeSpeedSlider.value);
+        PlayerPrefs.SetInt("SnakeSpeed", (int)snakeSpeedSlider.value);
         PlayerPrefs.Save();
     }
     private void LoadSettingFromPlayerPrefs()
@@ -41,7 +41,7 @@ public class SnakeSpeedControllerBehavior : MonoBehaviour
             return;
         }
 
-        snakeSpeedSlider.value = PlayerPrefs.GetFloat("SnakeSpeed");
+        snakeSpeedSlider.value = PlayerPrefs.GetInt("SnakeSpeed");
     }
 
 }

@@ -16,7 +16,6 @@ public class VolumeControllerBehavior : MonoBehaviour
     {
         musicVolumeSlider.value = AudioManager.Instance.GetMusicVolume();
         effectsVolumeSlider.value = AudioManager.Instance.GetEffectsVolume();
-        LoadSettingFromPlayerPrefs();
 
     }
 
@@ -38,15 +37,5 @@ public class VolumeControllerBehavior : MonoBehaviour
         PlayerPrefs.SetFloat("EffectsVolume", effectsVolumeSlider.value);
         PlayerPrefs.Save();
     }
-
-    private void LoadSettingFromPlayerPrefs()
-    {
-        if (!PlayerPrefs.HasKey("MusicVolume") || !PlayerPrefs.HasKey("EffectsVolume"))
-            return;
-
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume");
-        effectsVolumeSlider.value = PlayerPrefs.GetFloat("EffectsVolume");
-    }
-
 
 }
