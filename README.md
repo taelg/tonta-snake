@@ -5,7 +5,7 @@
 
 🎮 This project is part of my **portfolio** and aims to showcase my **game development skills**.
 
-> 🚫 **Note:** This repository **does NOT accept external contributions**.
+> 🚫 **Note:** This repository is open-source but it **does NOT accept external contributions**.
 
 ---
 
@@ -21,16 +21,15 @@ Connect with me and others through discord:
 
 👉 [**Tonta Games – Discord**](https://discord.gg/rAMtG2QVwN)
 
-</details>
-
 ---
+</details>
 
 <details>
 <summary>🇧🇷 Português</summary>
 
 🎮 Este projeto faz parte do meu **portfólio** e tem como objetivo demonstrar minhas **habilidades com desenvolvimento de jogos**.
 
-> 🚫 **Atenção:** Este repositório **não aceita contribuições externas**.
+> 🚫 **Atenção:** Este repositório é open-source mas **não aceita contribuições externas**.
 
 ---
 
