@@ -17,13 +17,9 @@ Feel free to reach out if you'd like to:
 - 💬 Talk about **game development**
 - 💼 Discuss **job opportunities**
 
----
+Connect with me and others through discord:
 
-## 🗨️ Join Tonta's Discord
-
-Connect with me and others through the community:
-
-👉 [**Tonta Games – Discord**](https://your-discord-invite-link-here)
+👉 [**Tonta Games – Discord**](https://discord.gg/rAMtG2QVwN)
 
 </details>
 
@@ -46,12 +42,8 @@ Sinta-se à vontade para me procurar caso queira:
 - 💬 Conversar sobre **desenvolvimento de jogos**
 - 💼 Discutir **oportunidades de trabalho**
 
----
+Conecte-se comigo e com outros através do discord:
 
-## 🗨️ Entre no Discord da Tonta
-
-Conecte-se comigo e com outros através da comunidade:
-
-👉 [**Tonta Games – Discord**](https://your-discord-invite-link-here)
+👉 [**Tonta Games – Discord**](https://discord.gg/rAMtG2QVwN)
 
 </details>
