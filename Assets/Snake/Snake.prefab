@@ -134,17 +134,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bf55d18b24e244a98d126feea3f41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveIntervalSecs: 0.125
-  boostSpeedMultiplier: 4
-  boostDecayRate: 1.75
-  boostDuration: 2
+  boostSpeedMultiplier: 3
+  boostDecayRate: 2
+  boostDuration: 1.5
   gameGrid: {fileID: 0}
   headSprite: {fileID: 2453819933810068086}
   snakeHead: {fileID: 3447296939884496136}
   snakeBodiesContainer: {fileID: 0}
   snakeBodyPrefab: {fileID: 9174609954592770686, guid: 8aee8adbb3e203947ba985a7ace930f9, type: 3}
   gameOverPanel: {fileID: 0}
-  currentScore: {fileID: 0}
+  scoreLabel: {fileID: 0}
   wallFX: {fileID: 0}
   musicFX: {fileID: 0}
   snakePartsPool: {fileID: 0}

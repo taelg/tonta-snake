@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   foodType: 0
-  foodLifeTimeSecs: 15
+  foodLifeTimeSecs: 30
   shrinkDurationSecs: 5
   startingScale: 2.5
   endingScale: 0.5

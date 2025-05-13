@@ -8,7 +8,7 @@ public class GenericComponentPoolBehavior<T> : MonoBehaviour where T : Component
     [SerializeField] protected int initialSize = 30;
     [SerializeField] private T prefab;
 
-    private readonly List<T> allObjects = new List<T>();
+    protected readonly List<T> allObjects = new List<T>();
     private readonly List<T> availableObjects = new List<T>();
 
     private void Awake()
@@ -20,6 +20,15 @@ public class GenericComponentPoolBehavior<T> : MonoBehaviour where T : Component
     {
         for (int i = 0; i < initialSize; i++)
             AddObjectToPool();
+    }
+
+    public void ResetAllObjects()
+    {
+        foreach (T obj in allObjects)
+        {
+            obj.gameObject.SetActive(false);
+            ReturnObjectToPool(obj);
+        }
     }
 
     public T GetNext()

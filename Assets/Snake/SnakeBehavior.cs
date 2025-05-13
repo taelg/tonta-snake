@@ -24,18 +24,24 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private MusicEffectsBehavior musicFX;
     [SerializeField] private GameObjectPoolBehavior snakePartsPool;
 
-    private float moveIntervalSecs = 0.175f;
+    public float moveIntervalSecs = 0.175f;
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
     private Transform currentTail;
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
+    private Coroutine boostingCoroutine = null;
     private bool isBoosting = false;
     private bool alive = true;
     private int foodAteCount = 0;
+    private float boostOriginalMoveIntervalSecs;
+    private Color boostOriginalHeadColor;
 
     private void Start()
     {
+        boostOriginalMoveIntervalSecs = moveIntervalSecs;
+        boostOriginalHeadColor = headSprite.color;
+
         currentTail = this.transform;
         StartCoroutine(MovingConstantly());
         LoadSpeedFromPlayerPrefs();
@@ -233,16 +239,6 @@ public class SnakeBehavior : MonoBehaviour
             facingDir = Direction.RIGHT;
     }
 
-    private void HandleBoostInput()
-    {
-        bool inputBoost = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown("joystick button 0");
-
-        if (inputBoost && !isBoosting)
-        {
-            StartCoroutine(ExecuteSpeedBoost());
-        }
-    }
-
     public void SetMovementSpeed(int speedId1to5)
     {
         switch (speedId1to5)
@@ -265,18 +261,28 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
+    public void BoostSnakeSpeed()
+    {
+        if (boostingCoroutine != null)
+        {
+            StopCoroutine(boostingCoroutine);
+            EndBoostEffect(boostOriginalMoveIntervalSecs, boostOriginalHeadColor);
+        }
 
-    private IEnumerator ExecuteSpeedBoost()
+        boostOriginalMoveIntervalSecs = moveIntervalSecs;
+        boostOriginalHeadColor = headSprite.color;
+        boostingCoroutine = StartCoroutine(ExecuteSpeedBoost(boostOriginalMoveIntervalSecs, boostOriginalHeadColor));
+    }
+
+    private IEnumerator ExecuteSpeedBoost(float originalSpeed, Color originalHeadColor)
     {
         isBoosting = true;
         wallFX.AnimateBoostEffect(boostDuration);
         musicFX.AnimateBoostEffect(boostDuration);
-        float originalSpeed = moveIntervalSecs;
         float boostedSpeed = originalSpeed / boostSpeedMultiplier;
         moveIntervalSecs = boostedSpeed;
 
         float elapsedTime = 0f;
-        Color originalColor = headSprite.color;
         headSprite.color = new Color(1f, 0.5f, 0.5f);
 
         while (elapsedTime < boostDuration)
@@ -288,10 +294,14 @@ public class SnakeBehavior : MonoBehaviour
 
             yield return new WaitForSeconds(0.1f);
         }
+        EndBoostEffect(originalSpeed, originalHeadColor);
+    }
 
+    private void EndBoostEffect(float originalSpeed, Color originalHeadColor)
+    {
         isBoosting = false;
         moveIntervalSecs = originalSpeed;
-        headSprite.color = originalColor;
+        headSprite.color = originalHeadColor;
     }
 
     private void UpdateSnakeHeadRotation()
@@ -320,6 +330,8 @@ public class SnakeBehavior : MonoBehaviour
         AudioManager.Instance.PlayOneShot(AudioId.SNAKE_EAT, AudioType.EFFECT);
         if (foodType == FoodType.PINK)
             wallFX.StartPinkFoodEffect();
+        else if (foodType == FoodType.ORANGE)
+            BoostSnakeSpeed();
     }
 
     private void IncreaseFoodAteScore()
