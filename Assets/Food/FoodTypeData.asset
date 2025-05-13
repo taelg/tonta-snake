@@ -19,9 +19,13 @@ MonoBehaviour:
     prefab: {fileID: 7646816509244324775, guid: 60b71a1d6cb92b746ab37903faa0975e, type: 3}
   - foodType: 1
     color: {r: 0.63529414, g: 0.38039216, b: 0.54509807, a: 1}
-    chance: 0.04
+    chance: 0.05
     prefab: {fileID: 70354726645219132, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
   - foodType: 2
     color: {r: 0.75294125, g: 0.5254902, b: 0.28235295, a: 1}
     chance: 0.25
     prefab: {fileID: 70354726645219132, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
+  - foodType: 3
+    color: {r: 0.7607844, g: 0.21960786, b: 0.21960786, a: 1}
+    chance: 0.15
+    prefab: {fileID: 70354726645219132, guid: 19abd5e5934801144b2d0a06afdb96e8, type: 3}

@@ -6,6 +6,7 @@ public class FoodSpawner : MonoBehaviour
     [SerializeField] GreenFoodBehavior greenFoodBehavior;
     [SerializeField] GenericSpecialFoodPool pinkFoodPool;
     [SerializeField] GenericSpecialFoodPool orangeFoodPool;
+    [SerializeField] GenericSpecialFoodPool redFoodPool;
 
     private void Start()
     {
@@ -23,9 +24,11 @@ public class FoodSpawner : MonoBehaviour
     {
         bool spawnPink = Random.value <= foodTypeData.GetChance(FoodType.PINK);
         bool spawnOrange = Random.value <= foodTypeData.GetChance(FoodType.ORANGE);
+        bool spawnRed = Random.value <= foodTypeData.GetChance(FoodType.RED);
 
         if (spawnPink) SpawnSpecialFood(pinkFoodPool.GetNext());
         if (spawnOrange) SpawnSpecialFood(orangeFoodPool.GetNext());
+        if (spawnRed) SpawnSpecialFood(redFoodPool.GetNext());
     }
 
     private void SpawnSpecialFood(SpecialFood specialFood)

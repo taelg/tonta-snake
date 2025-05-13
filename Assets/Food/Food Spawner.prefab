@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1294632410112067282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4556810751525371665}
+  - component: {fileID: 7182703290080025255}
+  m_Layer: 0
+  m_Name: RedFoodPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4556810751525371665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294632410112067282}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6402601441550969092}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7182703290080025255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294632410112067282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f82cdaf1ea4e7744bb5e1a66b1ac44e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialSize: 10
+  prefab: {fileID: 228945037376863434, guid: 19abd5e5934801144b2d0a06afdb96e8, type: 3}
 --- !u!1 &1667269760236281214
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f82cdaf1ea4e7744bb5e1a66b1ac44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 5
+  initialSize: 10
   prefab: {fileID: 228945037376863434, guid: a5f70fcfc98d6ab43bb73e786c274bb8, type: 3}
 --- !u!1 &4625021766592536041
 GameObject:
@@ -79,6 +125,7 @@ Transform:
   - {fileID: 9219201783540260725}
   - {fileID: 3635858500514650110}
   - {fileID: 9083629716491587507}
+  - {fileID: 4556810751525371665}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &693174733155577776
@@ -97,7 +144,7 @@ MonoBehaviour:
   greenFoodBehavior: {fileID: 8490148654569633436}
   pinkFoodPool: {fileID: 3366284533029477360}
   orangeFoodPool: {fileID: 1706612094509513870}
-  gameGrid: {fileID: 0}
+  redFoodPool: {fileID: 0}
 --- !u!1 &5472340135556546483
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f82cdaf1ea4e7744bb5e1a66b1ac44e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialSize: 5
+  initialSize: 10
   prefab: {fileID: 7176882193383667652, guid: 997aa3c72dd77ee4eace3d4cf605aae7, type: 3}
 --- !u!1001 &7807824505792522602
 PrefabInstance:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
@@ -23,10 +24,12 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private WallsEffectBehavior wallFX;
     [SerializeField] private MusicEffectsBehavior musicFX;
     [SerializeField] private GameObjectPoolBehavior snakePartsPool;
+    [SerializeField] private RedBlockerPool redBlockerPool;
 
     public float moveIntervalSecs = 0.175f;
     private List<BodyPartBehavior> bodyParts = new List<BodyPartBehavior>();
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
+    private Dictionary<Vector2, RedBlockerBehavior> activeRedBlockers = new Dictionary<Vector2, RedBlockerBehavior>();
     private Transform currentTail;
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
@@ -94,10 +97,23 @@ public class SnakeBehavior : MonoBehaviour
         if (foodType == FoodType.NONE)
             return;
 
-        IncreaseSnakeBody(tailPos);
+        if (foodType != FoodType.RED)
+            IncreaseSnakeBody(tailPos);
 
         if (foodType == FoodType.PINK)
             wallFX.EndPinkFoodEffect();
+
+        if (foodType == FoodType.RED)
+            AddRedBlocker(tailPos);
+    }
+
+    private void AddRedBlocker(Vector2 tailPos)
+    {
+        RedBlockerBehavior redBlocker = redBlockerPool.GetNext();
+        activeRedBlockers.Add(tailPos, redBlocker);
+        redBlocker.transform.position = tailPos;
+        redBlocker.gameObject.SetActive(true);
+        gameGrid.SetCellState(CellState.RED_BLOCKER, tailPos);
     }
 
     private void MoveBodies()
@@ -127,6 +143,7 @@ public class SnakeBehavior : MonoBehaviour
         Vector2 targetPos = GetNextMoveTargetPos();
         bool isTargetCellFree = gameGrid.IsGridCellFree(targetPos);
         bool isHittingPinkBodyPart = isTargetCellFree == false && gameGrid.GetFoodType(targetPos) == FoodType.PINK;
+        bool isBreakingRedBlocker = gameGrid.GetCellState(targetPos) == CellState.RED_BLOCKER && isBoosting;
 
         if (isTargetCellFree)
         {
@@ -136,6 +153,11 @@ public class SnakeBehavior : MonoBehaviour
         {
             MoveHead(targetPos);
             SplitSnakeOnSelfCollision(targetPos);
+        }
+        else if (isBreakingRedBlocker)
+        {
+            MoveHead(targetPos);
+            BreakRedBlocker(targetPos);
         }
         else
         {
@@ -170,6 +192,22 @@ public class SnakeBehavior : MonoBehaviour
         bodyParts.RemoveRange(splitOnIndex, removalSize);
         bodyPartsSprites.RemoveRange(splitOnIndex, removalSize);
         wallFX.EndPinkFoodEffect();
+    }
+
+    private void BreakRedBlocker(Vector2 targetPos)
+    {
+        RedBlockerBehavior redBlocker = activeRedBlockers[targetPos];
+        redBlocker.Break(BreakCallback);
+        //AudioManager.Instance.PlayOneShot(AudioId.RED_BLOCKER_BREAK, AudioType.EFFECT);
+    }
+
+    private void BreakCallback(RedBlockerBehavior redBlocker)
+    {
+        Debug.Log("chegou aqui sim");
+        Debug.Log($"com: {redBlocker.gameObject.name}");
+
+        redBlockerPool.ReturnObjectToPool(redBlocker);
+        redBlocker.gameObject.SetActive(false);
     }
 
     private void ClearBoardCellsOnSplitSnake(int splitOnIndex)
@@ -300,6 +338,7 @@ public class SnakeBehavior : MonoBehaviour
     private void EndBoostEffect(float originalSpeed, Color originalHeadColor)
     {
         isBoosting = false;
+        StopShakingRedBlockers();
         moveIntervalSecs = originalSpeed;
         headSprite.color = originalHeadColor;
     }
@@ -331,7 +370,10 @@ public class SnakeBehavior : MonoBehaviour
         if (foodType == FoodType.PINK)
             wallFX.StartPinkFoodEffect();
         else if (foodType == FoodType.ORANGE)
+        {
             BoostSnakeSpeed();
+            ShakeRedBlockers();
+        }
     }
 
     private void IncreaseFoodAteScore()
@@ -350,11 +392,25 @@ public class SnakeBehavior : MonoBehaviour
         currentTail = snakeBody.transform;
     }
 
+    private void ShakeRedBlockers()
+    {
+        foreach (KeyValuePair<Vector2, RedBlockerBehavior> kvp in activeRedBlockers)
+            kvp.Value.StartShaking();
+    }
+
+    private void StopShakingRedBlockers()
+    {
+        foreach (KeyValuePair<Vector2, RedBlockerBehavior> kvp in activeRedBlockers)
+            kvp.Value.StopShaking();
+    }
+
     public void ResetSnake()
     {
         foreach (BodyPartBehavior part in bodyParts)
             part.gameObject.SetActive(false);
 
+        activeRedBlockers.Clear();
+        redBlockerPool.ResetAllObjects();
         currentTail = this.transform;
         foodAteCount = 0;
         scoreLabel.ResetScore();
@@ -368,7 +424,6 @@ public class SnakeBehavior : MonoBehaviour
 
         StartCoroutine(MovingConstantly());
     }
-
 
 
 

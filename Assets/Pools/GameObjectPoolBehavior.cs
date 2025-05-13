@@ -8,6 +8,7 @@ public class GameObjectPoolBehavior : MonoBehaviour
     [SerializeField] private int initialSize = 30;
     [SerializeField] private GameObject prefab;
 
+    private readonly List<GameObject> allObjects = new List<GameObject>();
     private readonly List<GameObject> availableObjects = new List<GameObject>();
 
     private void Awake()
@@ -37,6 +38,7 @@ public class GameObjectPoolBehavior : MonoBehaviour
         var returner = GetOrAddObjectReturner(pooledObject);
         returner.pool = this;
         availableObjects.Add(pooledObject);
+        allObjects.Add(pooledObject);
         return pooledObject;
     }
 
@@ -52,6 +54,18 @@ public class GameObjectPoolBehavior : MonoBehaviour
         {
             availableObjects.Add(obj);
             StartCoroutine(DelayedContainerReturn(obj));
+        }
+    }
+
+    public void ResetAllObjects()
+    {
+        foreach (var obj in allObjects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+                obj.transform.parent = transform;
+            }
         }
     }
 
