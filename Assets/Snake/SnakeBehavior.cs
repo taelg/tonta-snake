@@ -34,7 +34,7 @@ public class SnakeBehavior : MonoBehaviour
     private Coroutine boostingCoroutine = null;
     private bool isBoosting = false;
     private bool alive = true;
-    private int foodAteCount = 0;
+    private int snakePoints = 0;
     private float boostOriginalMoveIntervalSecs;
     private Color boostOriginalHeadColor;
 
@@ -177,9 +177,17 @@ public class SnakeBehavior : MonoBehaviour
         gameGrid.SetCellState(targetPosNewState, targetPos, foodType);
     }
 
+    private void AddAndAnimatePoint()
+    {
+        snakePoints++;
+        scoreLabel.UpdateScoreDelayed(snakePoints);
+        VFXManager.Instance.AnimatePoint(this.transform.position);
+    }
+
     private void SplitSnakeOnSelfCollision(Vector2 targetPos)
     {
         MoveHead(targetPos);
+        AddAndAnimatePoint();
         int splitOnIndex = FindBodyPartIndexOnPos(targetPos);
         int removalSize = bodyParts.Count - splitOnIndex;
 
@@ -197,6 +205,7 @@ public class SnakeBehavior : MonoBehaviour
 
     private void BreakRedBlocker(Vector2 targetPos)
     {
+        AddAndAnimatePoint();
         RedBlockerBehavior redBlocker = activeRedBlockers[targetPos];
         activeRedBlockers.Remove(targetPos);
         redBlocker.Break(BreakCallback);
@@ -245,7 +254,7 @@ public class SnakeBehavior : MonoBehaviour
     {
         alive = false;
         gameOverPanel.gameObject.SetActive(true);
-        gameOverPanel.ShowFinalScore(foodAteCount);
+        gameOverPanel.ShowFinalScore(snakePoints);
     }
 
     private void RecolorSnakeParts()
@@ -365,8 +374,8 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnSnakeEatFood(FoodType foodType)
     {
-        foodAteCount++;
-        scoreLabel.UpdateScoreDelayed(foodAteCount);
+        snakePoints++;
+        scoreLabel.UpdateScoreDelayed(snakePoints);
         AudioManager.Instance.PlayOneShot(AudioId.SNAKE_EAT, AudioType.EFFECT);
         if (foodType == FoodType.PINK)
             wallFX.StartPinkFoodEffect();
@@ -407,7 +416,7 @@ public class SnakeBehavior : MonoBehaviour
         activeRedBlockers.Clear();
         redBlockerPool.ResetAllObjects();
         currentTail = this.transform;
-        foodAteCount = 0;
+        snakePoints = 0;
         scoreLabel.ResetScore();
         this.transform.position = Vector2.zero;
         bodyParts.Clear();
