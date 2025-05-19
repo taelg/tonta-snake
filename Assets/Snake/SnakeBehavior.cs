@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
@@ -114,6 +112,9 @@ public class SnakeBehavior : MonoBehaviour
         redBlocker.transform.position = tailPos;
         redBlocker.gameObject.SetActive(true);
         gameGrid.SetCellState(CellState.RED_BLOCKER, tailPos);
+
+        if (isBoosting)
+            redBlocker.StartShaking();
     }
 
     private void MoveBodies()
