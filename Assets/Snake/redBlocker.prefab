@@ -520,8 +520,8 @@ MonoBehaviour:
   shakeMagnitude: 0.05
   crackMask: {fileID: 5485734607747501504}
   sprite: {fileID: 2283590006617914702}
-  defaultColor: {r: 0.7607843, g: 0.21960784, b: 0.21960784, a: 1}
-  shakingColor: {r: 0.7607843, g: 0.21960784, b: 0.21960784, a: 0.78431374}
+  defaultColor: {r: 0.7075472, g: 0.27033645, b: 0.27033645, a: 1}
+  shakingColor: {r: 0.7058824, g: 0.27058825, b: 0.27058825, a: 0.7058824}
 --- !u!61 &8259004656147886453
 BoxCollider2D:
   m_ObjectHideFlags: 0

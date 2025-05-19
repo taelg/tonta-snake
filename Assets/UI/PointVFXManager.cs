@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointVFXManager : MonoBehaviour
+public class VFXManager : MonoBehaviour
 {
 
     [SerializeField] private Transform pointsLabel;
@@ -8,7 +8,7 @@ public class PointVFXManager : MonoBehaviour
 
     private Vector2 pointsLabelPos;
 
-    public static PointVFXManager Instance { get; private set; }
+    public static VFXManager Instance { get; private set; }
 
     private void Awake()
     {

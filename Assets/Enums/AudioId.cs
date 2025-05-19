@@ -4,5 +4,6 @@ public enum AudioId
     SNAKE_EAT,
     SNAKE_DIE,
     SNAKE_BOOST,
-    SNAKE_SPLIT
+    SNAKE_SPLIT,
+    RED_BLOCKER_BREAK
 }

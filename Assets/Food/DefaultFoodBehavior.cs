@@ -17,7 +17,7 @@ public class DefaultFoodBehavior : MonoBehaviour
 
     public virtual void OnEatFood()
     {
-        PointVFXManager.Instance.AnimatePoint(this.transform.position);
+        VFXManager.Instance.AnimatePoint(this.transform.position);
     }
 
     public void RestartFoodLifetime()

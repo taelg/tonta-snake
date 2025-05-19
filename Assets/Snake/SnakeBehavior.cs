@@ -197,15 +197,13 @@ public class SnakeBehavior : MonoBehaviour
     private void BreakRedBlocker(Vector2 targetPos)
     {
         RedBlockerBehavior redBlocker = activeRedBlockers[targetPos];
+        activeRedBlockers.Remove(targetPos);
         redBlocker.Break(BreakCallback);
-        //AudioManager.Instance.PlayOneShot(AudioId.RED_BLOCKER_BREAK, AudioType.EFFECT);
+        AudioManager.Instance.PlayOneShot(AudioId.RED_BLOCKER_BREAK, AudioType.EFFECT);
     }
 
     private void BreakCallback(RedBlockerBehavior redBlocker)
     {
-        Debug.Log("chegou aqui sim");
-        Debug.Log($"com: {redBlocker.gameObject.name}");
-
         redBlockerPool.ReturnObjectToPool(redBlocker);
         redBlocker.gameObject.SetActive(false);
     }
@@ -310,6 +308,7 @@ public class SnakeBehavior : MonoBehaviour
         boostOriginalMoveIntervalSecs = moveIntervalSecs;
         boostOriginalHeadColor = headSprite.color;
         boostingCoroutine = StartCoroutine(ExecuteSpeedBoost(boostOriginalMoveIntervalSecs, boostOriginalHeadColor));
+        AudioManager.Instance.PlayOneShot(AudioId.SNAKE_BOOST, AudioType.EFFECT);
     }
 
     private IEnumerator ExecuteSpeedBoost(float originalSpeed, Color originalHeadColor)
@@ -357,7 +356,6 @@ public class SnakeBehavior : MonoBehaviour
                 (int)this.transform.position.x,
                 (int)this.transform.position.y);
 
-            IncreaseFoodAteScore();
             gameGrid.SetCellState(CellState.SNAKE_AND_FOOD, currentPos, food.GetFoodType());
             food.OnEatFood();
             OnSnakeEatFood(food.GetFoodType());
@@ -366,6 +364,8 @@ public class SnakeBehavior : MonoBehaviour
 
     private void OnSnakeEatFood(FoodType foodType)
     {
+        foodAteCount++;
+        scoreLabel.UpdateScoreDelayed(foodAteCount);
         AudioManager.Instance.PlayOneShot(AudioId.SNAKE_EAT, AudioType.EFFECT);
         if (foodType == FoodType.PINK)
             wallFX.StartPinkFoodEffect();
@@ -374,12 +374,6 @@ public class SnakeBehavior : MonoBehaviour
             BoostSnakeSpeed();
             ShakeRedBlockers();
         }
-    }
-
-    private void IncreaseFoodAteScore()
-    {
-        foodAteCount++;
-        scoreLabel.UpdateScoreDelayed(foodAteCount);
     }
 
     private void IncreaseSnakeBody(Vector2 tailPos)

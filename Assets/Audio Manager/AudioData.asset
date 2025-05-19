@@ -21,6 +21,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 4764eba616a68e74c85ec56b34030588, type: 3}
     - {fileID: 8300000, guid: a06f8c70f8010df4a96fd31d274c0330, type: 3}
     - {fileID: 8300000, guid: 6876653ce14c6e845ada4981a243ce40, type: 3}
+  - audioId: 3
+    clips:
+    - {fileID: 8300000, guid: b7a32e2cf82f5da4c93eab8498a801a1, type: 3}
   - audioId: 4
     clips:
     - {fileID: 8300000, guid: d25f94c157ff1b74a997b373bf74f8c3, type: 3}
+  - audioId: 5
+    clips:
+    - {fileID: 8300000, guid: bd7b915d66b54624da58cffc247f81da, type: 3}
