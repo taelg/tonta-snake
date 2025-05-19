@@ -9,6 +9,7 @@ public class SnakeBehavior : MonoBehaviour
     [SerializeField] private float boostSpeedMultiplier = 4f;
     [SerializeField] private float boostDecayRate = 1.75f;
     [SerializeField] private float boostDuration = 3f;
+    [SerializeField] private Color boostingColor = Color.red;
 
     [Space]
     [Header("Internal")]
@@ -330,18 +331,30 @@ public class SnakeBehavior : MonoBehaviour
         moveIntervalSecs = boostedSpeed;
 
         float elapsedTime = 0f;
-        headSprite.color = new Color(1f, 0.5f, 0.5f);
+        headSprite.color = boostingColor;
+        float animationInterval = 0.1f;
 
         while (elapsedTime < boostDuration)
         {
-            elapsedTime += 0.1f;
-
             float progress = 1f - Mathf.Exp(-boostDecayRate * (elapsedTime / boostDuration));
             moveIntervalSecs = Mathf.Lerp(boostedSpeed, originalSpeed, progress);
 
-            yield return new WaitForSeconds(0.1f);
+            if (progress >= 0.8f)
+                BlinkColorIndicatingBoostIsEnding(originalHeadColor);
+
+
+            elapsedTime += animationInterval;
+            yield return new WaitForSeconds(animationInterval);
         }
         EndBoostEffect(originalSpeed, originalHeadColor);
+    }
+
+    private void BlinkColorIndicatingBoostIsEnding(Color originalHeadColor)
+    {
+        if (headSprite.color == boostingColor)
+            headSprite.color = originalHeadColor;
+        else
+            headSprite.color = boostingColor;
     }
 
     private void EndBoostEffect(float originalSpeed, Color originalHeadColor)

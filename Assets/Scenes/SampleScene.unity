@@ -9568,15 +9568,27 @@ PrefabInstance:
       objectReference: {fileID: 1724764227}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: boostDuration
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: gameOverPanel
       value: 
       objectReference: {fileID: 603055998}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostToColor.b
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostToColor.g
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostToColor.r
+      value: 0.7803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: boostDecayRate
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: redBlockerPool
@@ -9587,9 +9599,45 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 579081746}
     - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostingColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostingColor.g
+      value: 0.5166667
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: boostingColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostFromColor.b
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostFromColor.g
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostFromColor.r
+      value: 0.7803922
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: snakeBodiesContainer
       value: 
       objectReference: {fileID: 1674030234}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostStartHeadColor.b
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostStartHeadColor.g
+      value: 0.28235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6618268743655767046, guid: 152542a4824311b40811ac607c3571d0, type: 3}
+      propertyPath: BoostStartHeadColor.r
+      value: 0.72156864
+      objectReference: {fileID: 0}
     - target: {fileID: 8496115509416584603, guid: 152542a4824311b40811ac607c3571d0, type: 3}
       propertyPath: m_Name
       value: Snake
