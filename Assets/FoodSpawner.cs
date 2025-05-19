@@ -3,20 +3,20 @@ using UnityEngine;
 public class FoodSpawner : MonoBehaviour
 {
     [SerializeField] FoodTypeData foodTypeData;
-    [SerializeField] GreenFoodBehavior greenFoodBehavior;
+    [SerializeField] GreenFoodBehavior greenFood;
     [SerializeField] GenericSpecialFoodPool pinkFoodPool;
     [SerializeField] GenericSpecialFoodPool orangeFoodPool;
     [SerializeField] GenericSpecialFoodPool redFoodPool;
 
     private void Start()
     {
-        greenFoodBehavior.SetOnEatFoodCallback(OnEatGreenFoodCallback);
-        greenFoodBehavior.RestartFoodLifetime();
+        greenFood.SetOnEatFoodCallback(OnEatGreenFoodCallback);
+        greenFood.RestartFoodLifetime();
     }
 
     private void OnEatGreenFoodCallback()
     {
-        greenFoodBehavior.RepositionFoodOnGrid();
+        greenFood.RepositionFoodOnGrid();
         RollSpecialFoodSpawn();
     }
 
@@ -35,6 +35,14 @@ public class FoodSpawner : MonoBehaviour
     {
         specialFood.ActiveSpecialFood();
         specialFood.RepositionFoodOnGrid();
+    }
+
+    public void ResetAllFoods()
+    {
+        greenFood.RestartFoodLifetime();
+        pinkFoodPool.ResetAllObjects();
+        orangeFoodPool.ResetAllObjects();
+        redFoodPool.ResetAllObjects();
     }
 
 

@@ -29,4 +29,5 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d25f94c157ff1b74a997b373bf74f8c3, type: 3}
   - audioId: 5
     clips:
-    - {fileID: 8300000, guid: bd7b915d66b54624da58cffc247f81da, type: 3}
+    - {fileID: 8300000, guid: 88437e5bf20c8154fb53117691ba1ca9, type: 3}
+    - {fileID: 8300000, guid: 49b73c10647d1bd4891eb087bf2dabf0, type: 3}

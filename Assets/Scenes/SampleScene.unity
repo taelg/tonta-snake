@@ -1249,17 +1249,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268021077}
   m_CullTransparentMesh: 1
---- !u!114 &271990173 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3366284533029477360, guid: 7eaee95a3c521474cb732cbcff3aa67d, type: 3}
-  m_PrefabInstance: {fileID: 5375274330385566363}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f82cdaf1ea4e7744bb5e1a66b1ac44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &276006415
 GameObject:
   m_ObjectHideFlags: 0
@@ -3210,9 +3199,7 @@ MonoBehaviour:
   grid: {fileID: 861465751}
   saveScorePanel: {fileID: 1108231526}
   wallFX: {fileID: 999867147}
-  greenFood: {fileID: 354879537}
-  pinkFoodPool: {fileID: 271990173}
-  orangeFoodPool: {fileID: 1890586253}
+  foodSpawner: {fileID: 1979284219}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -8664,17 +8651,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888786172}
   m_CullTransparentMesh: 1
---- !u!114 &1890586253 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1706612094509513870, guid: 7eaee95a3c521474cb732cbcff3aa67d, type: 3}
-  m_PrefabInstance: {fileID: 5375274330385566363}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f82cdaf1ea4e7744bb5e1a66b1ac44e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1947851600
 GameObject:
   m_ObjectHideFlags: 0
@@ -8977,6 +8953,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8881649249300185537, guid: 152542a4824311b40811ac607c3571d0, type: 3}
   m_PrefabInstance: {fileID: 1012495768204862413}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1979284219 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 693174733155577776, guid: 7eaee95a3c521474cb732cbcff3aa67d, type: 3}
+  m_PrefabInstance: {fileID: 5375274330385566363}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6ea4b08bd728349a65fb254d94c051, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2001195895
 GameObject:
   m_ObjectHideFlags: 0
@@ -9673,6 +9660,10 @@ PrefabInstance:
       propertyPath: gameGrid
       value: 
       objectReference: {fileID: 861465751}
+    - target: {fileID: 693174733155577776, guid: 7eaee95a3c521474cb732cbcff3aa67d, type: 3}
+      propertyPath: greenFood
+      value: 
+      objectReference: {fileID: 354879537}
     - target: {fileID: 693174733155577776, guid: 7eaee95a3c521474cb732cbcff3aa67d, type: 3}
       propertyPath: redFoodPool
       value: 
