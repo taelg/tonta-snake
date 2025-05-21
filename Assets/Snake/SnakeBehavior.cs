@@ -41,12 +41,12 @@ public class SnakeBehavior : MonoBehaviour
 
     private void Start()
     {
+        LoadSpeedFromPlayerPrefs();
         boostOriginalMoveIntervalSecs = moveIntervalSecs;
         boostOriginalHeadColor = headSprite.color;
 
         currentTail = this.transform;
         StartCoroutine(MovingConstantly());
-        LoadSpeedFromPlayerPrefs();
     }
 
     private void LoadSpeedFromPlayerPrefs()
@@ -306,6 +306,8 @@ public class SnakeBehavior : MonoBehaviour
                 moveIntervalSecs = 0.1f;
                 break;
         }
+
+        boostOriginalMoveIntervalSecs = moveIntervalSecs;
     }
 
     public void BoostSnakeSpeed()
