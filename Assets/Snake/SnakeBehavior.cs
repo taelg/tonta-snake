@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SnakeBehavior : MonoBehaviour
 {
+    [Header("Boost Config")]
+    [SerializeField] private bool lockMovementInput = false;
     [Space]
     [Header("Boost Config")]
     [SerializeField] private float boostSpeedMultiplier = 4f;
@@ -30,6 +32,7 @@ public class SnakeBehavior : MonoBehaviour
     private List<SpriteRenderer> bodyPartsSprites = new List<SpriteRenderer>();
     private Dictionary<Vector2, RedBlockerBehavior> activeRedBlockers = new Dictionary<Vector2, RedBlockerBehavior>();
     private Transform currentTail;
+    private Direction lockedFacingDir = Direction.NONE;
     private Direction facingDir = Direction.RIGHT;
     private Direction lastMovedDir = Direction.NONE;
     private Coroutine boostingCoroutine = null;
@@ -42,6 +45,7 @@ public class SnakeBehavior : MonoBehaviour
     private void Start()
     {
         LoadSpeedFromPlayerPrefs();
+        LoadInputMethodFromPlayerPrefs();
         boostOriginalMoveIntervalSecs = moveIntervalSecs;
         boostOriginalHeadColor = headSprite.color;
 
@@ -55,9 +59,15 @@ public class SnakeBehavior : MonoBehaviour
         SetMovementSpeed(PlayerPrefs.GetInt("SnakeSpeed"));
     }
 
+    private void LoadInputMethodFromPlayerPrefs()
+    {
+        if (!PlayerPrefs.HasKey("AlternativeInput")) return;
+        SetAlternativeInput(PlayerPrefs.GetInt("AlternativeInput") == 1);
+    }
+
     private void Update()
     {
-        HandMovementInput();
+        HandleMovementInput();
         UpdateSnakeHeadRotation();
     }
 
@@ -134,6 +144,10 @@ public class SnakeBehavior : MonoBehaviour
     private Vector2 GetNextMoveTargetPos()
     {
         Vector2 moveDir = facingDir.ToVector2();
+
+        if (lockMovementInput && lockedFacingDir != Direction.NONE)
+            moveDir = lockedFacingDir.ToVector2();
+
         Vector2 currentPos = new Vector2((int)this.transform.position.x, (int)this.transform.position.y);
         Vector2 targetPos = new Vector2(currentPos.x + (int)moveDir.x, currentPos.y + (int)moveDir.y);
         targetPos = gameGrid.MirrorPositionIfOutOfBounds(targetPos);
@@ -143,6 +157,7 @@ public class SnakeBehavior : MonoBehaviour
     private void TryMoveHead()
     {
         Vector2 targetPos = GetNextMoveTargetPos();
+        lockedFacingDir = Direction.NONE;
         bool isTargetCellFree = gameGrid.IsGridCellFree(targetPos);
         bool isHittingPinkBodyPart = isTargetCellFree == false && gameGrid.GetFoodType(targetPos) == FoodType.PINK;
         bool isBreakingRedBlocker = gameGrid.GetCellState(targetPos) == CellState.RED_BLOCKER && isBoosting;
@@ -268,22 +283,41 @@ public class SnakeBehavior : MonoBehaviour
         }
     }
 
-    private void HandMovementInput()
+    private void HandleMovementInput()
     {
+        if (lockMovementInput && lockedFacingDir != Direction.NONE)
+            return;
+
         float vertical = Input.GetAxisRaw("Vertical");
         float horizontal = Input.GetAxisRaw("Horizontal");
+        bool inputedMovement = false;
 
         if (vertical > 0 && (lastMovedDir != Direction.DOWN))
+        {
             facingDir = Direction.UP;
+            inputedMovement = true;
+        }
 
         if (horizontal < 0 && (lastMovedDir != Direction.RIGHT))
+        {
             facingDir = Direction.LEFT;
+            inputedMovement = true;
+        }
 
         if (vertical < 0 && (lastMovedDir != Direction.UP))
+        {
             facingDir = Direction.DOWN;
+            inputedMovement = true;
+        }
 
         if (horizontal > 0 && (lastMovedDir != Direction.LEFT))
+        {
             facingDir = Direction.RIGHT;
+            inputedMovement = true;
+        }
+
+        if (lockMovementInput && inputedMovement)
+            lockedFacingDir = facingDir;
     }
 
     public void SetMovementSpeed(int speedId1to5)
@@ -442,6 +476,11 @@ public class SnakeBehavior : MonoBehaviour
         alive = true;
 
         StartCoroutine(MovingConstantly());
+    }
+
+    public void SetAlternativeInput(bool value)
+    {
+        lockMovementInput = value;
     }
 
 
